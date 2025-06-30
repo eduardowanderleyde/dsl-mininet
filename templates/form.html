@@ -8,6 +8,29 @@
 <body>
 <div class="container mt-4">
     <h1>Novo Cenário</h1>
+    
+    <div class="alert alert-warning mb-4">
+        <h5>📚 Conceitos Básicos</h5>
+        <div class="row">
+            <div class="col-md-6">
+                <h6>📡 APs (Access Points):</h6>
+                <p>São os roteadores WiFi que criam a rede. Cada AP tem uma posição (x,y) no espaço.</p>
+                
+                <h6>📱 Stations:</h6>
+                <p>São os dispositivos móveis (como celulares) que se conectam aos APs. Eles se movem seguindo uma trajetória definida.</p>
+            </div>
+            <div class="col-md-6">
+                <h6>📶 Canal WiFi:</h6>
+                <p>Frequência da rede (1-13). Cada canal é uma "faixa" diferente de frequência. APs no mesmo canal (ex: todos no canal 1) formam uma rede mesh, mas podem interferir entre si. Canais diferentes (ex: AP1 no canal 1, AP2 no canal 6) evitam interferência.</p>
+                
+                <h6>⏱️ Tempo de Espera:</h6>
+                <p>Quanto tempo (em segundos) a station fica parada em cada ponto da trajetória antes de se mover para o próximo.</p>
+            </div>
+        </div>
+        <hr>
+        <p><b>🎯 Objetivo:</b> Simular dispositivos móveis se movendo entre diferentes pontos de acesso WiFi, capturando dados de qualidade da conexão (RSSI, latência) durante o movimento.</p>
+    </div>
+    
     <form method="post">
         <div class="mb-3">
             <label>SSID</label>
@@ -49,6 +72,65 @@
         <br>
         <button type="submit" class="btn btn-primary">Salvar Cenário</button>
     </form>
+</div>
+<div class="container mt-4">
+    <div class="alert alert-info">
+        <h5>💡 Exemplos & Dicas para Criar Cenários</h5>
+        <div class="row">
+            <div class="col-md-6">
+                <h6>📡 Exemplos de APs:</h6>
+                <ul>
+                    <li><b>Linha Reta:</b> ap1(10,20) + ap2(30,20)</li>
+                    <li><b>Triângulo:</b> ap1(10,10) + ap2(30,10) + ap3(20,30)</li>
+                    <li><b>Quadrado:</b> ap1(10,10) + ap2(30,10) + ap3(30,30) + ap4(10,30)</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h6>📱 Exemplos de Stations:</h6>
+                <ul>
+                    <li><b>Linha Reta:</b> sta1(5,20) → trajetória: <code>15,20;25,20;35,20</code></li>
+                    <li><b>Triângulo:</b> sta1(15,15) → trajetória: <code>25,15;20,25;15,15</code></li>
+                    <li><b>Quadrado:</b> sta1(5,5) → trajetória: <code>35,5;35,35;5,35;5,5</code></li>
+                </ul>
+                <h6>🎯 Exemplos de Trajetórias:</h6>
+                <ul>
+                    <li><b>Linha:</b> <code>15,20;25,20;35,20</code></li>
+                    <li><b>Triângulo:</b> <code>25,15;20,25;15,15</code></li>
+                    <li><b>Quadrado:</b> <code>35,5;35,35;5,35;5,5</code></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <p><b>💭 Dicas:</b></p>
+        <ul>
+            <li>Use coordenadas entre 0 e 50 para facilitar a visualização</li>
+            <li>Trajetória: pontos separados por <code>;</code>, cada ponto com <code>x,y</code></li>
+            <li>Tempo de espera: 2-5 segundos é ideal para capturar dados</li>
+            <li>SSID: mesmo nome para todos os APs = mesh lógico</li>
+        </ul>
+        <p><b>🎯 Cenários Sugeridos:</b> Comece com 2 APs em linha reta e 1 station atravessando para testar handover básico!</p>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <div class="alert alert-success">
+        <h5>📋 Passo a Passo para Criar um Cenário</h5>
+        <ol>
+            <li><b>Configure a rede:</b> Defina SSID, canal e tempo de espera</li>
+            <li><b>Adicione APs:</b> Clique em "Adicionar AP" e defina nome e posição (x,y)</li>
+            <li><b>Adicione Stations:</b> Clique em "Adicionar Station" e configure:
+                <ul>
+                    <li>Nome da station</li>
+                    <li>Posição inicial (x,y)</li>
+                    <li>Trajetória (pontos separados por ;)</li>
+                </ul>
+            </li>
+            <li><b>Teste o cenário:</b> Clique em "Salvar Cenário"</li>
+            <li><b>Execute:</b> Volte à página inicial e clique em "Executar" no seu cenário</li>
+            <li><b>Analise os logs:</b> Baixe os arquivos CSV gerados para cada station</li>
+        </ol>
+        <p><b>💡 Dica:</b> Comece simples! 2 APs + 1 station é suficiente para testar handover básico.</p>
+    </div>
 </div>
 <script>
 function addAP() {

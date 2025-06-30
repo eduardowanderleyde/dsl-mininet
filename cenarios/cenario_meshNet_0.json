@@ -1,0 +1,7 @@
+{
+  "ssid": "meshNet",
+  "channel": 1,
+  "wait": 2,
+  "aps": [],
+  "stations": []
+}

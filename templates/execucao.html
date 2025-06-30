@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Executando Cenário</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h1>Executando Cenário: {{ nome }}</h1>
+    
+    {% if saida %}
+        <div class="alert alert-success">
+            <h5>✅ Execução Finalizada!</h5>
+            <p>O cenário foi executado com sucesso. Verifique os logs gerados.</p>
+        </div>
+    {% else %}
+        <div class="alert alert-warning">
+            <h5>⚠️ Erro na Execução</h5>
+            <p>Houve um problema ao executar o cenário.</p>
+        </div>
+    {% endif %}
+    
+    <div class="card">
+        <div class="card-header">
+            <h5>📋 Logs da Execução</h5>
+        </div>
+        <div class="card-body">
+            <pre style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; max-height: 400px; overflow-y: auto;">{{ saida or 'Nenhum log disponível' }}</pre>
+        </div>
+    </div>
+    
+    <div class="mt-3">
+        <a href="/" class="btn btn-primary">← Voltar à Lista</a>
+        <a href="/preview/{{ nome }}" class="btn btn-info">👁️ Ver Preview</a>
+        {% if saida %}
+            <button class="btn btn-success" onclick="alert('Logs salvos na pasta do projeto!')">📥 Baixar Logs</button>
+        {% endif %}
+    </div>
+    
+    <div class="mt-4">
+        <div class="alert alert-info">
+            <h6>💡 Próximos Passos:</h6>
+            <ul>
+                <li>Verifique os arquivos CSV gerados na pasta do projeto</li>
+                <li>Cada station terá seu próprio arquivo de log (ex: sta1_log.csv)</li>
+                <li>Os logs contêm: timestamp, posição, RSSI, latência</li>
+                <li>Use os dados para analisar qualidade da conexão durante o movimento</li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html> 
