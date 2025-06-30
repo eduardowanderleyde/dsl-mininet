@@ -1,0 +1,38 @@
+{
+  "ssid": "meshNet",
+  "channel": 1,
+  "aps": [
+    {
+      "name": "ap1",
+      "x": 10,
+      "y": 20
+    },
+    {
+      "name": "ap2",
+      "x": 30,
+      "y": 20
+    }
+  ],
+  "stations": [
+    {
+      "name": "sta1",
+      "start_x": 5,
+      "start_y": 20,
+      "trajectory": [
+        [
+          15,
+          20
+        ],
+        [
+          25,
+          20
+        ],
+        [
+          35,
+          20
+        ]
+      ]
+    }
+  ],
+  "wait": 2
+}

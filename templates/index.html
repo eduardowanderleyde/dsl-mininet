@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cenários Mininet-WiFi</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h1>Cenários Mininet-WiFi</h1>
+    <a href="/novo" class="btn btn-primary mb-3">Novo Cenário</a>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nome do Cenário</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for c in cenarios %}
+            <tr>
+                <td>{{ c }}</td>
+                <td>
+                    <a href="/preview/{{ c }}" class="btn btn-info btn-sm">Preview</a>
+                    <a href="/executar/{{ c }}" class="btn btn-success btn-sm">Executar</a>
+                    <a href="/download/{{ c }}" class="btn btn-secondary btn-sm">Baixar JSON</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="2">Nenhum cenário salvo.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html> 

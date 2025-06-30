@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Novo Cenário</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h1>Novo Cenário</h1>
+    <form method="post">
+        <div class="mb-3">
+            <label>SSID</label>
+            <input type="text" class="form-control" name="ssid" value="{{ ssid or 'meshNet' }}">
+        </div>
+        <div class="mb-3">
+            <label>Canal</label>
+            <input type="number" class="form-control" name="channel" value="{{ channel or 1 }}">
+        </div>
+        <div class="mb-3">
+            <label>Tempo de espera (s)</label>
+            <input type="number" class="form-control" name="wait" value="{{ wait or 2 }}">
+        </div>
+        <hr>
+        <h4>APs</h4>
+        <div id="aps">
+            {% for ap in aps %}
+            <div class="row mb-2">
+                <div class="col"><input type="text" class="form-control" name="ap_name" value="{{ ap.name }}" placeholder="Nome"></div>
+                <div class="col"><input type="number" class="form-control" name="ap_x" value="{{ ap.x }}" placeholder="X"></div>
+                <div class="col"><input type="number" class="form-control" name="ap_y" value="{{ ap.y }}" placeholder="Y"></div>
+            </div>
+            {% endfor %}
+        </div>
+        <button type="button" class="btn btn-secondary mb-3" onclick="addAP()">Adicionar AP</button>
+        <hr>
+        <h4>Stations</h4>
+        <div id="stations">
+            {% for sta in stations %}
+            <div class="row mb-2">
+                <div class="col"><input type="text" class="form-control" name="sta_name" value="{{ sta.name }}" placeholder="Nome"></div>
+                <div class="col"><input type="number" class="form-control" name="sta_start_x" value="{{ sta.start_x }}" placeholder="X inicial"></div>
+                <div class="col"><input type="number" class="form-control" name="sta_start_y" value="{{ sta.start_y }}" placeholder="Y inicial"></div>
+                <div class="col"><input type="text" class="form-control" name="sta_traj" value="{{ sta.trajectory|join(';') }}" placeholder="Trajetória (ex: 10,10;20,20)"></div>
+            </div>
+            {% endfor %}
+        </div>
+        <button type="button" class="btn btn-secondary mb-3" onclick="addStation()">Adicionar Station</button>
+        <br>
+        <button type="submit" class="btn btn-primary">Salvar Cenário</button>
+    </form>
+</div>
+<script>
+function addAP() {
+    var aps = document.getElementById('aps');
+    var row = document.createElement('div');
+    row.className = 'row mb-2';
+    row.innerHTML = '<div class="col"><input type="text" class="form-control" name="ap_name" placeholder="Nome"></div>' +
+        '<div class="col"><input type="number" class="form-control" name="ap_x" placeholder="X"></div>' +
+        '<div class="col"><input type="number" class="form-control" name="ap_y" placeholder="Y"></div>';
+    aps.appendChild(row);
+}
+function addStation() {
+    var stas = document.getElementById('stations');
+    var row = document.createElement('div');
+    row.className = 'row mb-2';
+    row.innerHTML = '<div class="col"><input type="text" class="form-control" name="sta_name" placeholder="Nome"></div>' +
+        '<div class="col"><input type="number" class="form-control" name="sta_start_x" placeholder="X inicial"></div>' +
+        '<div class="col"><input type="number" class="form-control" name="sta_start_y" placeholder="Y inicial"></div>' +
+        '<div class="col"><input type="text" class="form-control" name="sta_traj" placeholder="Trajetória (ex: 10,10;20,20)"></div>';
+    stas.appendChild(row);
+}
+</script>
+</body>
+</html> 
