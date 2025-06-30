@@ -1,0 +1,350 @@
+eduardo-wanderley@eduardo-wanderley-B550M-AORUS-ELITE:~/Desktop/dsl-mininet$ python3 teste_cenarios.py
+🔍 Testando 5 cenários...
+
+📄 cenario_exemplo_1.json:
+  ✅ Válido
+
+📡 CENÁRIO: meshNet
+📶 Canal: 1
+⏱️  Tempo de espera: 3s
+
+🏢 APs (2):
+  • ap1 em (10.0, 20.0)
+  • ap2 em (30.0, 20.0)
+
+📱 Stations (1):
+  • sta1: início em (5.0, 20.0)
+    Trajetória: 3 pontos
+      1. (15.0, 20.0)
+      2. (25.0, 20.0)
+      3. (35.0, 20.0)
+--------------------------------------------------
+📄 cenario_exemplo_2.json:
+  ✅ Válido
+
+📡 CENÁRIO: meshNet
+📶 Canal: 1
+⏱️  Tempo de espera: 3s
+
+🏢 APs (3):
+  • ap1 em (10.0, 10.0)
+  • ap2 em (30.0, 10.0)
+  • ap3 em (20.0, 30.0)
+
+📱 Stations (1):
+  • sta1: início em (15.0, 15.0)
+    Trajetória: 3 pontos
+      1. (25.0, 15.0)
+      2. (20.0, 25.0)
+      3. (15.0, 15.0)
+--------------------------------------------------
+📄 cenario_exemplo_3.json:
+  ✅ Válido
+
+📡 CENÁRIO: meshNet
+📶 Canal: 1
+⏱️  Tempo de espera: 3s
+
+🏢 APs (4):
+  • ap1 em (10.0, 10.0)
+  • ap2 em (30.0, 10.0)
+  • ap3 em (30.0, 30.0)
+  • ap4 em (10.0, 30.0)
+
+📱 Stations (2):
+  • sta1: início em (5.0, 5.0)
+    Trajetória: 4 pontos
+      1. (35.0, 5.0)
+      2. (35.0, 35.0)
+      3. (5.0, 35.0)
+      4. (5.0, 5.0)
+  • sta2: início em (20.0, 20.0)
+    Trajetória: 5 pontos
+      1. (25.0, 25.0)
+      2. (15.0, 25.0)
+      3. (15.0, 15.0)
+      4. (25.0, 15.0)
+      5. (20.0, 20.0)
+--------------------------------------------------
+📄 cenario_meshNet_0.json:
+  ✅ Válido
+
+📡 CENÁRIO: meshNet
+📶 Canal: 1
+⏱️  Tempo de espera: 2s
+
+🏢 APs (0):
+
+📱 Stations (0):
+--------------------------------------------------
+📄 cenario_meshNet_1.json:
+  ✅ Válido
+
+📡 CENÁRIO: meshNet
+📶 Canal: 1
+⏱️  Tempo de espera: 2s
+
+🏢 APs (1):
+  • ap1 em (40.0, 50.0)
+
+📱 Stations (1):
+  • station1: início em (65.0, 43.0)
+    Trajetória: 3 pontos
+      1. (25.0, 15.0)
+      2. (20.0, 25.0)
+      3. (15.0, 15.0)
+--------------------------------------------------
+eduardo-wanderley@eduardo-wanderley-B550M-AORUS-ELITE:~/Desktop/dsl-mininet$ python3 executa_cenario.py cenarios/cenario_exemplo_1.json
+Matplotlib created a temporary config/cache directory at /tmp/matplotlib-kxa7o2yr because the default path (/home/eduardo-wanderley/.config/matplotlib) is not a writable directory; it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.*** Mininet must run as root.
+eduardo-wanderley@eduardo-wanderley-B550M-AORUS-ELITE:~/Desktop/dsl-mininet$ python3 analisar_logs.py todos
+🔍 Analisando 1 arquivos de log...
+
+
+📊 ANÁLISE: station1_log.csv
+📈 Total de registros: 3
+
+📶 RSSI (dBm):
+   Mínimo: -100.0
+   Máximo: -36.0
+   Média: -57.3
+   Mediana: -36.0
+   Qualidade: Muito Boa
+
+⏱️  Latência: Nenhum dado válido (possíveis timeouts)
+------------------------------------------------------------
+eduardo-wanderley@eduardo-wanderley-B550M-AORUS-ELITE:~/Desktop/dsl-mininet$ python3 demo_completa.py
+🚀 DEMONSTRAÇÃO COMPLETA - DSL Mininet-WiFi
+Este script demonstra todas as funcionalidades do sistema
+
+============================================================
+🎯 1. VALIDAÇÃO DE CENÁRIOS
+============================================================
+
+🔧 Validando todos os cenários
+Comando: python3 teste_cenarios.py
+------------------------------------------------------------
+🔍 Testando 5 cenários...
+
+📄 cenario_exemplo_1.json:
+  ✅ Válido
+
+📡 CENÁRIO: meshNet
+📶 Canal: 1
+⏱️  Tempo de espera: 3s
+
+🏢 APs (2):
+  • ap1 em (10.0, 20.0)
+  • ap2 em (30.0, 20.0)
+
+📱 Stations (1):
+  • sta1: início em (5.0, 20.0)
+    Trajetória: 3 pontos
+      1. (15.0, 20.0)
+      2. (25.0, 20.0)
+      3. (35.0, 20.0)
+--------------------------------------------------
+📄 cenario_exemplo_2.json:
+  ✅ Válido
+
+📡 CENÁRIO: meshNet
+📶 Canal: 1
+⏱️  Tempo de espera: 3s
+
+🏢 APs (3):
+  • ap1 em (10.0, 10.0)
+  • ap2 em (30.0, 10.0)
+  • ap3 em (20.0, 30.0)
+
+📱 Stations (1):
+  • sta1: início em (15.0, 15.0)
+    Trajetória: 3 pontos
+      1. (25.0, 15.0)
+      2. (20.0, 25.0)
+      3. (15.0, 15.0)
+--------------------------------------------------
+📄 cenario_exemplo_3.json:
+  ✅ Válido
+
+📡 CENÁRIO: meshNet
+📶 Canal: 1
+⏱️  Tempo de espera: 3s
+
+🏢 APs (4):
+  • ap1 em (10.0, 10.0)
+  • ap2 em (30.0, 10.0)
+  • ap3 em (30.0, 30.0)
+  • ap4 em (10.0, 30.0)
+
+📱 Stations (2):
+  • sta1: início em (5.0, 5.0)
+    Trajetória: 4 pontos
+      1. (35.0, 5.0)
+      2. (35.0, 35.0)
+      3. (5.0, 35.0)
+      4. (5.0, 5.0)
+  • sta2: início em (20.0, 20.0)
+    Trajetória: 5 pontos
+      1. (25.0, 25.0)
+      2. (15.0, 25.0)
+      3. (15.0, 15.0)
+      4. (25.0, 15.0)
+      5. (20.0, 20.0)
+--------------------------------------------------
+📄 cenario_meshNet_0.json:
+  ✅ Válido
+
+📡 CENÁRIO: meshNet
+📶 Canal: 1
+⏱️  Tempo de espera: 2s
+
+🏢 APs (0):
+
+📱 Stations (0):
+--------------------------------------------------
+📄 cenario_meshNet_1.json:
+  ✅ Válido
+
+📡 CENÁRIO: meshNet
+📶 Canal: 1
+⏱️  Tempo de espera: 2s
+
+🏢 APs (1):
+  • ap1 em (40.0, 50.0)
+
+📱 Stations (1):
+  • station1: início em (65.0, 43.0)
+    Trajetória: 3 pontos
+      1. (25.0, 15.0)
+      2. (20.0, 25.0)
+      3. (15.0, 15.0)
+--------------------------------------------------
+
+
+============================================================
+🎯 2. CRIAÇÃO DE CENÁRIO DE TESTE
+============================================================
+
+🔧 Criando cenário de teste
+Comando: python3 teste_cenarios.py criar
+------------------------------------------------------------
+✅ Cenário de teste criado: cenarios/cenario_teste.json
+
+
+============================================================
+🎯 3. ESTRUTURA DE ARQUIVOS
+============================================================
+
+🔧 Listando cenários disponíveis
+Comando: ls -la cenarios/
+------------------------------------------------------------
+total 32
+drwxrwxr-x 2 eduardo-wanderley eduardo-wanderley 4096 Jun 30 19:30 .
+drwxrwxr-x 6 eduardo-wanderley eduardo-wanderley 4096 Jun 30 19:23 ..
+-rw-rw-r-- 1 eduardo-wanderley eduardo-wanderley  397 Jun 30 19:19 cenario_exemplo_1.json
+-rw-rw-r-- 1 eduardo-wanderley eduardo-wanderley  465 Jun 30 19:19 cenario_exemplo_2.json
+-rw-rw-r-- 1 eduardo-wanderley eduardo-wanderley  768 Jun 30 19:20 cenario_exemplo_3.json
+-rw-r--r-- 1 root              root                83 Jun 30 16:52 cenario_meshNet_0.json
+-rw-r--r-- 1 root              root               424 Jun 30 17:11 cenario_meshNet_1.json
+-rw-rw-r-- 1 eduardo-wanderley eduardo-wanderley  484 Jun 30 19:30 cenario_teste.json
+
+
+============================================================
+🎯 4. ANÁLISE DE LOGS EXISTENTES
+============================================================
+
+🔧 Listando logs existentes
+Comando: ls -la results/
+------------------------------------------------------------
+total 12
+drwxrwxr-x 2 eduardo-wanderley eduardo-wanderley 4096 Jun 30 19:06 .
+drwxrwxr-x 6 eduardo-wanderley eduardo-wanderley 4096 Jun 30 19:23 ..
+-rw-r--r-- 1 eduardo-wanderley eduardo-wanderley  166 Jun 30 19:06 station1_log.csv
+
+
+🔧 Analisando log existente
+Comando: python3 analisar_logs.py results/station1_log.csv
+------------------------------------------------------------
+
+📊 ANÁLISE: station1_log.csv
+📈 Total de registros: 3
+
+📶 RSSI (dBm):
+   Mínimo: -100.0
+   Máximo: -36.0
+   Média: -57.3
+   Mediana: -36.0
+   Qualidade: Muito Boa
+
+⏱️  Latência: Nenhum dado válido (possíveis timeouts)
+
+============================================================
+
+📋 Últimos 3 registros de station1_log.csv:
+--------------------------------------------------------------------------------
+Timestamp            Posição         RSSI     Latência  
+--------------------------------------------------------------------------------
+2025-06-30 19:05:55  25.0,15.0       -100     9999      
+2025-06-30 19:05:57  20.0,25.0       -36
+     9999      
+2025-06-30 19:05:59  15.0,15.0       -36
+     9999      
+
+
+============================================================
+🎯 5. INSTRUÇÕES DE EXECUÇÃO
+============================================================
+📋 Para executar um cenário:
+   python3 executa_cenario.py cenarios/cenario_exemplo_1.json
+
+📋 Para analisar logs:
+   python3 analisar_logs.py todos
+
+📋 Para usar a interface web:
+   python3 app.py
+   Acesse: http://localhost:5000
+
+============================================================
+🎯 6. EXEMPLOS DE CENÁRIOS
+============================================================
+🎯 Cenário 1: Handover Básico (2 APs em linha reta)
+   - Ideal para testar handover simples
+   - Arquivo: cenarios/cenario_exemplo_1.json
+
+🎯 Cenário 2: Handover Múltiplo (3 APs em triângulo)
+   - Ideal para testar handover entre múltiplos APs
+   - Arquivo: cenarios/cenario_exemplo_2.json
+
+🎯 Cenário 3: Rede Complexa (4 APs em quadrado)
+   - Ideal para testar cenários complexos
+   - Arquivo: cenarios/cenario_exemplo_3.json
+
+============================================================
+🎯 7. CORREÇÕES IMPLEMENTADAS
+============================================================
+✅ Formatação CSV corrigida (sem quebras de linha)
+✅ Coleta RSSI robusta com múltiplos métodos
+✅ Coleta latência melhorada com fallbacks
+✅ Logs salvos em diretório 'results/'
+✅ Log da posição inicial incluído
+✅ Aguarda estabilização da rede
+✅ Validação de cenários com teste_cenarios.py
+✅ Análise estatística com analisar_logs.py
+
+============================================================
+🎯 8. PRÓXIMOS PASSOS
+============================================================
+1️⃣ Execute um cenário de exemplo:
+   python3 executa_cenario.py cenarios/cenario_exemplo_1.json
+
+2️⃣ Analise os resultados:
+   python3 analisar_logs.py todos
+
+3️⃣ Use a interface web para criar cenários personalizados:
+   python3 app.py
+
+4️⃣ Compare diferentes configurações para otimizar sua rede
+
+============================================================
+🎉 DEMONSTRAÇÃO CONCLUÍDA!
+O sistema está pronto para uso!
+============================================================
