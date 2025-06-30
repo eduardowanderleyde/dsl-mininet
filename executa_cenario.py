@@ -4,8 +4,8 @@ import json
 import time
 import csv
 import sys
-from mininet.wifi.net import Mininet_wifi
-from mininet.wifi.node import OVSKernelAP
+from mn_wifi.net import Mininet_wifi
+from mn_wifi.node import OVSKernelAP
 from mininet.node import Controller
 from mininet.log import setLogLevel, info
 

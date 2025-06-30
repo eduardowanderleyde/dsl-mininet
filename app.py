@@ -84,6 +84,35 @@ def preview(nome):
 def download(nome):
     return send_from_directory(CENARIOS_DIR, nome, as_attachment=True)
 
+@app.route('/logs')
+def logs():
+    """Lista todos os logs disponíveis na pasta results"""
+    if not os.path.exists('results'):
+        os.makedirs('results', exist_ok=True)
+    logs = [f for f in os.listdir('results') if f.endswith(('.csv', '.log'))]
+    return render_template('logs.html', logs=logs)
+
+@app.route('/download_log/<nome>')
+def download_log(nome):
+    """Baixa um arquivo de log específico"""
+    return send_from_directory('results', nome, as_attachment=True)
+
+@app.route('/view_log/<nome>')
+def view_log(nome):
+    """Visualiza o conteúdo de um arquivo de log"""
+    caminho = os.path.join('results', nome)
+    if not os.path.exists(caminho):
+        flash('Arquivo de log não encontrado!', 'danger')
+        return redirect(url_for('logs'))
+    
+    try:
+        with open(caminho, 'r') as f:
+            conteudo = f.read()
+        return render_template('view_log.html', nome=nome, conteudo=conteudo)
+    except Exception as e:
+        flash(f'Erro ao ler arquivo: {e}', 'danger')
+        return redirect(url_for('logs'))
+
 def executar_remoto(nome_arquivo_local, nome_arquivo_remoto):
     print(f"[LOG] Iniciando execução remota...")
     print(f"[LOG] Conectando em {SSH_HOST} como {SSH_USER} usando chave {SSH_KEY}")
@@ -106,12 +135,61 @@ def executar_remoto(nome_arquivo_local, nome_arquivo_remoto):
         ssh.close()
         raise
     try:
-        print(f"[LOG] Executando comando remoto: cd {REMOTE_PATH} && python3 executa_cenario.py {nome_arquivo_remoto}")
-        stdin, stdout, stderr = ssh.exec_command(
-            f"cd {REMOTE_PATH} && python3 executa_cenario.py {nome_arquivo_remoto}"
-        )
+        # Configurar variável de ambiente para Matplotlib e executar Mininet
+        comando = f"""
+        export MPLCONFIGDIR=/tmp/matplotlib-config
+        mkdir -p /tmp/matplotlib-config
+        cd {REMOTE_PATH}
+        
+        # Tentar diferentes métodos de execução
+        echo "=== Tentando executar Mininet ==="
+        
+        # Método 1: Tentar sudo (pode falhar se precisar de senha)
+        echo "Método 1: sudo"
+        sudo python3 executa_cenario.py {nome_arquivo_remoto} 2>&1 || {{
+            echo "Sudo falhou, tentando método 2..."
+            
+            # Método 2: Tentar pkexec
+            echo "Método 2: pkexec"
+            pkexec python3 executa_cenario.py {nome_arquivo_remoto} 2>&1 || {{
+                echo "Pkexec falhou, tentando método 3..."
+                
+                # Método 3: Tentar executar como usuário normal (vai falhar mas mostrar erro claro)
+                echo "Método 3: usuário normal"
+                python3 executa_cenario.py {nome_arquivo_remoto} 2>&1
+            }}
+        }}
+        """
+        print(f"[LOG] Executando Mininet com múltiplos métodos...")
+        stdin, stdout, stderr = ssh.exec_command(comando)
         saida = stdout.read().decode() + stderr.read().decode()
         print("[LOG] Execução remota finalizada.")
+        
+        # Baixar logs após execução
+        print("[LOG] Baixando logs da execução...")
+        try:
+            sftp = ssh.open_sftp()
+            # Criar pasta results localmente
+            os.makedirs('results', exist_ok=True)
+            
+            # Listar arquivos de log na VM
+            stdin, stdout, stderr = ssh.exec_command(f"cd {REMOTE_PATH} && ls -1 *.csv *.log 2>/dev/null || echo 'Nenhum arquivo de log'")
+            arquivos_log = stdout.read().decode().strip().split('\n')
+            
+            for arquivo in arquivos_log:
+                if arquivo and arquivo != 'Nenhum arquivo de log':
+                    arquivo = arquivo.strip()
+                    print(f"[LOG] Baixando {arquivo}...")
+                    try:
+                        sftp.get(f"{REMOTE_PATH}/{arquivo}", f"results/{arquivo}")
+                        print(f"[LOG] {arquivo} baixado com sucesso!")
+                    except Exception as e:
+                        print(f"[ERRO] Falha ao baixar {arquivo}: {e}")
+            
+            sftp.close()
+        except Exception as e:
+            print(f"[ERRO] Falha ao baixar logs: {e}")
+            
     except Exception as e:
         print(f"[ERRO] Falha ao executar comando remoto: {e}")
         ssh.close()
