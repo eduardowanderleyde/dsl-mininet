@@ -1,0 +1,5 @@
+timestamp,position,rssi,latency_avg,latency_jitter,packet_loss,ap_connected,aps_visible
+2025-07-02T17:44:30.119247,"15.0,15.0",-100,0.0358,0.008613942186943212,0.0,ap1,meshNet:-36;meshNet:-36;meshNet:-36
+2025-07-02T17:44:44.559923,"25.0,15.0",-36,0.0502,0.004816637831516919,0.0,ap1,meshNet:-36;meshNet:-36;meshNet:-36
+2025-07-02T17:44:58.994530,"20.0,25.0",-36,0.0398,0.010848963084092415,0.0,ap1,meshNet:-36;meshNet:-36;meshNet:-36
+2025-07-02T17:45:13.436131,"15.0,15.0",-36,0.037,0.012767145334803704,0.0,ap1,meshNet:-36;meshNet:-36;meshNet:-36

@@ -1,0 +1,129 @@
+{
+  "network_metrics": [
+    {
+      "timestamp": "2025-07-02T17:44:19.287034",
+      "type": "network_start",
+      "value": {
+        "total_aps": 3,
+        "total_stations": 2,
+        "ssid": "meshNet"
+      }
+    },
+    {
+      "timestamp": "2025-07-02T17:46:36.483406",
+      "type": "network_end",
+      "value": {
+        "total_handover_events": 0,
+        "total_errors": 0
+      }
+    }
+  ],
+  "station_metrics": {
+    "sta1": [
+      {
+        "timestamp": "2025-07-02T17:44:30.119247",
+        "position": "15.0,15.0",
+        "rssi": -100,
+        "latency_avg": 0.0358,
+        "latency_jitter": 0.008613942186943212,
+        "packet_loss": 0.0,
+        "ap_connected": "ap1",
+        "aps_visible": "meshNet:-36;meshNet:-36;meshNet:-36"
+      },
+      {
+        "timestamp": "2025-07-02T17:44:44.559923",
+        "position": "25.0,15.0",
+        "rssi": -36,
+        "latency_avg": 0.0502,
+        "latency_jitter": 0.004816637831516919,
+        "packet_loss": 0.0,
+        "ap_connected": "ap1",
+        "aps_visible": "meshNet:-36;meshNet:-36;meshNet:-36"
+      },
+      {
+        "timestamp": "2025-07-02T17:44:58.994530",
+        "position": "20.0,25.0",
+        "rssi": -36,
+        "latency_avg": 0.0398,
+        "latency_jitter": 0.010848963084092415,
+        "packet_loss": 0.0,
+        "ap_connected": "ap1",
+        "aps_visible": "meshNet:-36;meshNet:-36;meshNet:-36"
+      },
+      {
+        "timestamp": "2025-07-02T17:45:13.436131",
+        "position": "15.0,15.0",
+        "rssi": -36,
+        "latency_avg": 0.037,
+        "latency_jitter": 0.012767145334803704,
+        "packet_loss": 0.0,
+        "ap_connected": "ap1",
+        "aps_visible": "meshNet:-36;meshNet:-36;meshNet:-36"
+      }
+    ],
+    "sta2": [
+      {
+        "timestamp": "2025-07-02T17:45:24.291181",
+        "position": "5.0,20.0",
+        "rssi": -36,
+        "latency_avg": 1.438,
+        "latency_jitter": 0.4388279845224095,
+        "packet_loss": 0.0,
+        "ap_connected": "ap1",
+        "aps_visible": "meshNet:-36;meshNet:-36;meshNet:-36"
+      },
+      {
+        "timestamp": "2025-07-02T17:45:38.735493",
+        "position": "15.0,20.0",
+        "rssi": -36,
+        "latency_avg": 1.184,
+        "latency_jitter": 0.02966479394838268,
+        "packet_loss": 0.0,
+        "ap_connected": "ap1",
+        "aps_visible": "meshNet:-36;meshNet:-36;meshNet:-36"
+      },
+      {
+        "timestamp": "2025-07-02T17:45:53.169879",
+        "position": "25.0,20.0",
+        "rssi": -36,
+        "latency_avg": 1.526,
+        "latency_jitter": 0.019493588689617945,
+        "packet_loss": 0.0,
+        "ap_connected": "ap1",
+        "aps_visible": "meshNet:-36;meshNet:-36;meshNet:-36"
+      },
+      {
+        "timestamp": "2025-07-02T17:46:07.614345",
+        "position": "35.0,20.0",
+        "rssi": -36,
+        "latency_avg": 2.014,
+        "latency_jitter": 0.011401754250991351,
+        "packet_loss": 0.0,
+        "ap_connected": "ap1",
+        "aps_visible": "meshNet:-36;meshNet:-36;meshNet:-36"
+      },
+      {
+        "timestamp": "2025-07-02T17:46:22.045407",
+        "position": "25.0,20.0",
+        "rssi": -36,
+        "latency_avg": 1.56,
+        "latency_jitter": 0.05196152422706627,
+        "packet_loss": 0.0,
+        "ap_connected": "ap1",
+        "aps_visible": "meshNet:-36;meshNet:-36;meshNet:-36"
+      },
+      {
+        "timestamp": "2025-07-02T17:46:36.483276",
+        "position": "15.0,20.0",
+        "rssi": -36,
+        "latency_avg": 1.296,
+        "latency_jitter": 0.13408952233489385,
+        "packet_loss": 0.0,
+        "ap_connected": "ap1",
+        "aps_visible": "meshNet:-36;meshNet:-36;meshNet:-36"
+      }
+    ]
+  },
+  "handover_events": [],
+  "errors": []
+}

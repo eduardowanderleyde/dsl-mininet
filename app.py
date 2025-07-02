@@ -144,19 +144,19 @@ def executar_remoto(nome_arquivo_local, nome_arquivo_remoto):
         # Tentar diferentes métodos de execução
         echo "=== Tentando executar Mininet ==="
         
-        # Método 1: Tentar sudo (pode falhar se precisar de senha)
-        echo "Método 1: sudo"
-        sudo python3 executa_cenario.py {nome_arquivo_remoto} 2>&1 || {{
+        # Método 1: Tentar sudo com versão 3 (melhorada)
+        echo "Método 1: sudo com versão 3"
+        sudo python3 executa_cenario_mesh_v3.py {nome_arquivo_remoto} 2>&1 || {{
             echo "Sudo falhou, tentando método 2..."
             
-            # Método 2: Tentar pkexec
-            echo "Método 2: pkexec"
-            pkexec python3 executa_cenario.py {nome_arquivo_remoto} 2>&1 || {{
+            # Método 2: Tentar pkexec com versão 3
+            echo "Método 2: pkexec com versão 3"
+            pkexec python3 executa_cenario_mesh_v3.py {nome_arquivo_remoto} 2>&1 || {{
                 echo "Pkexec falhou, tentando método 3..."
                 
                 # Método 3: Tentar executar como usuário normal (vai falhar mas mostrar erro claro)
-                echo "Método 3: usuário normal"
-                python3 executa_cenario.py {nome_arquivo_remoto} 2>&1
+                echo "Método 3: usuário normal com versão 3"
+                python3 executa_cenario_mesh_v3.py {nome_arquivo_remoto} 2>&1
             }}
         }}
         """
