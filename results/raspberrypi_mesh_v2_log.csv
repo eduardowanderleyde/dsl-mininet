@@ -1,0 +1,7 @@
+time,position,rssi,latency_ms,ap_conectado,aps_visiveis
+2025-07-01 17:29:45,"15.0,15.0",-100,9999,desconectado,nenhum_ap_detectado
+2025-07-01 17:29:47,"12.0,15.0",-100,9999,desconectado,nenhum_ap_detectado
+2025-07-01 17:29:49,"18.0,15.0",-100,9999,desconectado,nenhum_ap_detectado
+2025-07-01 17:29:52,"15.0,18.0",-100,9999,desconectado,nenhum_ap_detectado
+2025-07-01 17:29:54,"15.0,12.0",-100,9999,desconectado,nenhum_ap_detectado
+2025-07-01 17:29:56,"15.0,15.0",-100,9999,desconectado,nenhum_ap_detectado
