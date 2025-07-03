@@ -1,0 +1,43 @@
+{
+  "ssid": "meshNet",
+  "channel": 1,
+  "wait": 2,
+  "handover": {
+    "enabled": true,
+    "threshold": -65,
+    "hysteresis": 5
+  },
+  "propagation": {
+    "model": "log_distance",
+    "mobility_type": "continuous",
+    "mobility_speed": 2.0,
+    "sampling_interval": 0.5
+  },
+  "aps": [
+    {
+      "name": "ap1",
+      "x": 15.0,
+      "y": 20.0,
+      "range": 25,
+      "channel": 1
+    },
+    {
+      "name": "ap2",
+      "x": 35.0,
+      "y": 20.0,
+      "range": 25,
+      "channel": 1
+    }
+  ],
+  "stations": [
+    {
+      "name": "sta1",
+      "start_x": 5.0,
+      "start_y": 20.0,
+      "trajectory": [
+        [25.0, 20.0],
+        [45.0, 20.0]
+      ]
+    }
+  ]
+} 

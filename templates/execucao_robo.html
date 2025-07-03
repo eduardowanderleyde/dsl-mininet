@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Execução no Robô - {{ nome }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h1>🤖 Execução no Robô Real</h1>
+    
+    <div class="alert alert-info">
+        <h5>📋 Cenário: {{ nome }}</h5>
+        <p>Este cenário será executado no robô físico conectado ao sistema.</p>
+    </div>
+    
+    {% if config %}
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h5>📡 APs Configurados</h5>
+            <ul class="list-group">
+                {% for ap in config.aps %}
+                <li class="list-group-item">
+                    <strong>{{ ap.name }}</strong> em ({{ ap.x }}, {{ ap.y }}) - Alcance: {{ ap.range }}m
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h5>📱 Stations Configuradas</h5>
+            <ul class="list-group">
+                {% for sta in config.stations %}
+                <li class="list-group-item">
+                    <strong>{{ sta.name }}</strong> - Trajetória: {{ sta.trajectory|length }} pontos
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h5>⚙️ Configurações de Movimento</h5>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <strong>Tipo:</strong> {{ config.propagation.mobility_type if config.propagation else 'discrete' }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Velocidade:</strong> {{ config.propagation.mobility_speed if config.propagation else 2.0 }} m/s
+                </li>
+                <li class="list-group-item">
+                    <strong>Amostragem:</strong> {{ config.propagation.sampling_interval if config.propagation else 1.0 }}s
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h5>📊 Dados Coletados</h5>
+            <ul class="list-group">
+                <li class="list-group-item">📶 RSSI (força do sinal)</li>
+                <li class="list-group-item">⏱️ Latência de rede</li>
+                <li class="list-group-item">📡 SSID conectado</li>
+                <li class="list-group-item">🔄 Detecção de handover</li>
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+    
+    <div class="card">
+        <div class="card-header">
+            <h5>🔌 Status da Conexão</h5>
+        </div>
+        <div class="card-body">
+            {% if sucesso %}
+            <div class="alert alert-success">
+                <h6>✅ Conexão Estabelecida</h6>
+                <p>O robô foi detectado e o script foi enviado com sucesso!</p>
+            </div>
+            {% else %}
+            <div class="alert alert-warning">
+                <h6>⚠️ Robô Não Detectado</h6>
+                <p>O sistema tentou conectar com o robô mas não foi possível estabelecer conexão automática.</p>
+            </div>
+            {% endif %}
+            
+            <h6>📋 Log de Tentativas:</h6>
+            <pre class="bg-light p-3 rounded">{{ saida }}</pre>
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <h5>💡 Próximos Passos</h5>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h6>🤖 Se o robô foi detectado:</h6>
+                        <ol>
+                            <li>O script foi enviado automaticamente</li>
+                            <li>O robô deve começar a se mover</li>
+                            <li>Os dados serão coletados em tempo real</li>
+                            <li>Verifique os logs em <code>results/</code></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h6>🔧 Se o robô não foi detectado:</h6>
+                        <ol>
+                            <li>Conecte o robô via USB</li>
+                            <li>Certifique-se que está ligado</li>
+                            <li>Copie o script gerado manualmente</li>
+                            <li>Execute no robô: <code>python3 robo_script_*.py</code></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <a href="/" class="btn btn-primary">🏠 Voltar ao Início</a>
+        <a href="/logs" class="btn btn-secondary">📊 Ver Logs</a>
+        <a href="/executar/{{ nome }}" class="btn btn-success">🖥️ Executar Simulação</a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

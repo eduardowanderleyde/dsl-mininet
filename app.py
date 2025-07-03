@@ -34,6 +34,12 @@ def novo():
         handover_threshold = int(request.form.get('handover_threshold', -65))
         handover_hysteresis = int(request.form.get('handover_hysteresis', 5))
         
+        # Configurações avançadas de propagação e mobilidade
+        propagation_model = request.form.get('propagation_model', 'simple')
+        mobility_type = request.form.get('mobility_type', 'discrete')
+        mobility_speed = float(request.form.get('mobility_speed', 2.0))
+        sampling_interval = float(request.form.get('sampling_interval', 1.0))
+        
         # APs
         ap_names = request.form.getlist('ap_name')
         ap_xs = request.form.getlist('ap_x')
@@ -83,6 +89,12 @@ def novo():
                 "enabled": handover_enabled,
                 "threshold": handover_threshold,
                 "hysteresis": handover_hysteresis
+            },
+            "propagation": {
+                "model": propagation_model,
+                "mobility_type": mobility_type,
+                "mobility_speed": mobility_speed,
+                "sampling_interval": sampling_interval
             }
         }
         nome = f"cenario_{ssid}_{len(os.listdir(CENARIOS_DIR))}.json"
@@ -324,6 +336,296 @@ def executar_remoto(nome_arquivo_local, nome_arquivo_remoto):
     ssh.close()
     return saida
 
+def gerar_script_robo(config, nome_cenario):
+    """Gera script Python para executar no robô real"""
+    
+    script = f'''#!/usr/bin/env python3
+"""
+Script para robô real - Cenário: {nome_cenario}
+Executa movimento e coleta dados WiFi reais
+"""
+
+import time
+import json
+import csv
+import subprocess
+import serial
+import math
+from datetime import datetime
+
+# Configurações do robô
+ROBO_CONFIG = {{
+    "serial_port": "/dev/ttyUSB0",  # Porta serial do robô
+    "baudrate": 9600,
+    "wifi_interface": "wlan0",
+    "movement_speed": {config.get('propagation', {}).get('mobility_speed', 2.0)},
+    "sampling_interval": {config.get('propagation', {}).get('sampling_interval', 1.0)}
+}}
+
+# Configurações do cenário
+CENARIO_CONFIG = {json.dumps(config, indent=2)}
+
+def conectar_robo():
+    """Conecta com o robô via serial"""
+    try:
+        ser = serial.Serial(ROBO_CONFIG["serial_port"], ROBO_CONFIG["baudrate"], timeout=1)
+        print(f"✅ Conectado ao robô em {{ROBO_CONFIG['serial_port']}}")
+        return ser
+    except Exception as e:
+        print(f"❌ Erro ao conectar com robô: {{e}}")
+        return None
+
+def enviar_comando_robo(ser, comando):
+    """Envia comando para o robô"""
+    try:
+        ser.write(f"{{comando}}\\n".encode())
+        time.sleep(0.1)
+        resposta = ser.readline().decode().strip()
+        return resposta
+    except Exception as e:
+        print(f"❌ Erro ao enviar comando: {{e}}")
+        return None
+
+def obter_dados_wifi():
+    """Obtém dados WiFi reais"""
+    try:
+        # RSSI
+        cmd_rssi = f"iw dev {{ROBO_CONFIG['wifi_interface']}} link"
+        result_rssi = subprocess.run(cmd_rssi, shell=True, capture_output=True, text=True)
+        
+        # Latência
+        cmd_ping = "ping -c 1 -W 2 8.8.8.8"
+        result_ping = subprocess.run(cmd_ping, shell=True, capture_output=True, text=True)
+        
+        # SSID atual
+        cmd_ssid = f"iw dev {{ROBO_CONFIG['wifi_interface']}} link | grep SSID"
+        result_ssid = subprocess.run(cmd_ssid, shell=True, capture_output=True, text=True)
+        
+        rssi = -100
+        latency = 9999
+        ssid = "N/A"
+        
+        # Parse RSSI
+        for line in result_rssi.stdout.split('\\n'):
+            if 'signal:' in line:
+                try:
+                    rssi = int(line.split('signal:')[1].split()[0])
+                except:
+                    pass
+        
+        # Parse latência
+        for line in result_ping.stdout.split('\\n'):
+            if 'time=' in line:
+                try:
+                    latency = float(line.split('time=')[1].split()[0])
+                except:
+                    pass
+        
+        # Parse SSID
+        if result_ssid.stdout.strip():
+            ssid = result_ssid.stdout.strip().split('SSID:')[1].strip()
+        
+        return {{
+            'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            'rssi': rssi,
+            'latency': latency,
+            'ssid': ssid,
+            'position': [0, 0]  # Será atualizado pelo robô
+        }}
+        
+    except Exception as e:
+        print(f"❌ Erro ao obter dados WiFi: {{e}}")
+        return None
+
+def mover_robo(ser, x, y):
+    """Move o robô para posição (x, y)"""
+    comando = f"MOVE {{x}} {{y}}"
+    resposta = enviar_comando_robo(ser, comando)
+    print(f"🤖 Movendo para ({{x}}, {{y}}): {{resposta}}")
+    return resposta
+
+def executar_cenario_robo():
+    """Executa o cenário no robô real"""
+    print("🚀 Iniciando execução no robô real...")
+    
+    # Conectar com robô
+    ser = conectar_robo()
+    if not ser:
+        print("❌ Não foi possível conectar com o robô")
+        return
+    
+    try:
+        # Criar arquivo de log
+        log_file = f'robo_log_{{datetime.now().strftime("%Y%m%d_%H%M%S")}}.csv'
+        
+        with open(log_file, 'w', newline='', encoding='utf-8') as csvfile:
+            fieldnames = ['timestamp', 'x', 'y', 'rssi', 'latency', 'ssid', 'handover']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            
+            # Posição inicial
+            pos_atual = [0, 0]
+            ssid_anterior = None
+            
+            # Executar para cada station
+            for station in CENARIO_CONFIG.get('stations', []):
+                print(f"📱 Executando station: {{station['name']}}")
+                
+                # Posição inicial da station
+                pos_atual = [station['start_x'], station['start_y']]
+                mover_robo(ser, pos_atual[0], pos_atual[1])
+                time.sleep(2)
+                
+                # Dados iniciais
+                dados = obter_dados_wifi()
+                if dados:
+                    dados['x'] = pos_atual[0]
+                    dados['y'] = pos_atual[1]
+                    dados['handover'] = False
+                    writer.writerow(dados)
+                    print(f"📊 Dados iniciais: {{dados}}")
+                
+                # Mover pela trajetória
+                for i, ponto in enumerate(station['trajectory']):
+                    x_dest, y_dest = ponto
+                    
+                    print(f"🚗 Movendo para ({{x_dest}}, {{y_dest}})")
+                    
+                    # Mover robô
+                    mover_robo(ser, x_dest, y_dest)
+                    pos_atual = [x_dest, y_dest]
+                    
+                    # Aguardar estabilização
+                    time.sleep(ROBO_CONFIG['sampling_interval'])
+                    
+                    # Coletar dados
+                    dados = obter_dados_wifi()
+                    if dados:
+                        dados['x'] = pos_atual[0]
+                        dados['y'] = pos_atual[1]
+                        
+                        # Detectar handover
+                        if ssid_anterior and dados['ssid'] != ssid_anterior:
+                            dados['handover'] = True
+                            print(f"🔄 Handover detectado: {{ssid_anterior}} → {{dados['ssid']}}")
+                        else:
+                            dados['handover'] = False
+                        
+                        writer.writerow(dados)
+                        print(f"📊 Dados: {{dados}}")
+                        
+                        ssid_anterior = dados['ssid']
+        
+        print(f"✅ Execução concluída! Log salvo em: {{log_file}}")
+        
+    except Exception as e:
+        print(f"❌ Erro durante execução: {{e}}")
+    
+    finally:
+        ser.close()
+
+if __name__ == "__main__":
+    executar_cenario_robo()
+'''
+    
+    return script
+
+def enviar_para_robo(script_path, config):
+    """Tenta enviar script para o robô via diferentes métodos"""
+    
+    saida = []
+    
+    # Método 1: Tentar via USB/Serial
+    saida.append("=== Tentando conectar via USB/Serial ===")
+    try:
+        import serial
+        # Listar portas disponíveis
+        import glob
+        portas = glob.glob('/dev/ttyUSB*') + glob.glob('/dev/ttyACM*')
+        
+        if portas:
+            saida.append(f"📡 Portas encontradas: {portas}")
+            
+            # Tentar conectar na primeira porta
+            porta = portas[0]
+            saida.append(f"🔌 Tentando conectar em {porta}...")
+            
+            ser = serial.Serial(porta, 9600, timeout=1)
+            ser.write(b"TEST\n")
+            resposta = ser.readline().decode().strip()
+            ser.close()
+            
+            if resposta:
+                saida.append(f"✅ Robô respondeu: {resposta}")
+                saida.append(f"📤 Enviando script para {porta}...")
+                return "Conectado via USB/Serial"
+            else:
+                saida.append("⚠️ Robô não respondeu")
+        else:
+            saida.append("❌ Nenhuma porta USB encontrada")
+            
+    except Exception as e:
+        saida.append(f"❌ Erro USB/Serial: {e}")
+    
+    # Método 2: Tentar via SSH (se robô tiver IP)
+    saida.append("\n=== Tentando conectar via SSH ===")
+    try:
+        # Configurações específicas do Raspberry Pi Zero 2 W
+        pi_config = {
+            'ip': '192.168.68.107',
+            'username': 'eduardowanderley',
+            'password': '200982'
+        }
+        
+        saida.append(f"🔍 Tentando conectar no Raspberry Pi Zero 2 W...")
+        saida.append(f"   IP: {pi_config['ip']}")
+        saida.append(f"   Usuário: {pi_config['username']}")
+        
+        try:
+            ssh = paramiko.SSHClient()
+            ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            ssh.connect(
+                pi_config['ip'], 
+                username=pi_config['username'], 
+                password=pi_config['password'], 
+                timeout=5
+            )
+            
+            saida.append("✅ Conexão SSH estabelecida!")
+            
+            # Enviar script via SCP
+            sftp = ssh.open_sftp()
+            remote_path = f'/home/{pi_config["username"]}/{os.path.basename(script_path)}'
+            sftp.put(script_path, remote_path)
+            sftp.close()
+            
+            saida.append(f"📤 Script enviado para: {remote_path}")
+            
+            # Executar no robô
+            comando_execucao = f'python3 {remote_path}'
+            saida.append(f"🚀 Executando: {comando_execucao}")
+            
+            stdin, stdout, stderr = ssh.exec_command(comando_execucao)
+            saida.append("✅ Script iniciado no Raspberry Pi!")
+            
+            ssh.close()
+            return f"Conectado via SSH ({pi_config['ip']})"
+            
+        except Exception as e:
+            saida.append(f"❌ Erro SSH: {e}")
+            saida.append("❌ Não foi possível conectar no Raspberry Pi")
+        
+    except Exception as e:
+        saida.append(f"❌ Erro SSH: {e}")
+    
+    # Método 3: Salvar script localmente para transferência manual
+    saida.append("\n=== Salvando script para transferência manual ===")
+    saida.append(f"📁 Script salvo em: {os.path.abspath(script_path)}")
+    saida.append("💡 Copie o script para o robô manualmente e execute:")
+    saida.append(f"   python3 {os.path.basename(script_path)}")
+    
+    return "\n".join(saida)
+
 @app.route('/executar/<nome>')
 def executar(nome):
     caminho = os.path.join(CENARIOS_DIR, nome)
@@ -338,5 +640,42 @@ def executar(nome):
         sucesso = False
     return render_template('execucao.html', nome=nome, saida=saida, sucesso=sucesso)
 
+@app.route('/executar_robo/<nome>')
+def executar_robo(nome):
+    """Executa cenário no robô real conectado via USB/Serial"""
+    caminho = os.path.join(CENARIOS_DIR, nome)
+    if not os.path.exists(caminho):
+        flash('Cenário não encontrado!', 'danger')
+        return redirect(url_for('index'))
+    
+    try:
+        # Carregar configuração do cenário
+        with open(caminho, 'r') as f:
+            config = json.load(f)
+        
+        # Gerar script para o robô
+        script_robo = gerar_script_robo(config, nome)
+        
+        # Salvar script temporário
+        script_path = f'robo_script_{nome.replace(".json", "")}.py'
+        with open(script_path, 'w') as f:
+            f.write(script_robo)
+        
+        # Tentar enviar para o robô via USB/Serial
+        saida = enviar_para_robo(script_path, config)
+        sucesso = "ERRO" not in saida.upper()
+        
+        flash(f'Script enviado para o robô! {saida}', 'success' if sucesso else 'warning')
+        
+    except Exception as e:
+        saida = f"Erro ao conectar com robô: {e}"
+        sucesso = False
+        flash(saida, 'danger')
+    
+    return render_template('execucao_robo.html', nome=nome, saida=saida, sucesso=sucesso, config=config)
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True) 
+    print("🚀 Iniciando servidor Flask...")
+    print("📡 Interface web disponível em: http://localhost:5000")
+    print("🤖 Configurado para conectar no Raspberry Pi: 192.168.68.107")
+    app.run(host='0.0.0.0', port=5000, debug=False)  # Desabilitar debug para evitar reinicializações 

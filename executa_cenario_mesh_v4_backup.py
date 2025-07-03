@@ -476,8 +476,8 @@ def executar_simulacao_mesh_v4(config):
                     # Movimento discreto (saltos) - comportamento original
                     info(f"   🚗 Movendo para ({x_destino}, {y_destino})\n")
                     sta.setPosition(f'{x_destino},{y_destino},0')
-                time.sleep(config.get("wait", 3))
-                
+                    time.sleep(config.get("wait", 3))
+                    
                     # Coletar dados uma vez no ponto de destino
                     wifi_info = obter_info_wifi_detalhada(sta, sta_conf["name"])
                     latency_info = obter_latencia_completa(sta)
@@ -645,47 +645,47 @@ def executar_simulacao_mesh_v4(config):
                 
                 # Para movimento discreto, continuar com o código original
                 if mobility_type == "discrete":
-                # Coletar dados completos
-                wifi_info = obter_info_wifi_detalhada(sta, sta_conf["name"])
-                latency_info = obter_latencia_completa(sta)
-                bandwidth_info = obter_bandwidth_iperf3(sta)
-                
-                # Handover automático ou detecção manual
-                if auto_handover:
-                    handover_info = monitorar_e_forcar_handover(sta, sta_conf["name"], threshold, hysteresis)
-                else:
-                    handover_info = detectar_handover(sta, sta_conf["name"], ap_objs, ap_anterior)
-                
-                # Determinar AP atual
-                ap_atual = None
-                for ap_name, ap in ap_objs.items():
-                    try:
-                        ap_ip = f"10.0.0.{list(ap_objs.keys()).index(ap_name) + 1}"
-                        ping_result = sta.cmd(f'ping -c 1 -W 1 {ap_ip}')
-                        if '1 received' in ping_result or '1 packets received' in ping_result:
-                            ap_atual = ap_name
-                            break
-                    except:
-                        continue
-                
-                # Atualizar handover se necessário
-                if ap_anterior and ap_atual and ap_atual != ap_anterior:
-                    handover_info = {
-                        'handover': True,
-                        'new_bssid': ap_atual
-                    }
-                
-                ap_anterior = ap_atual
-                
-                writer.writerow({
-                    'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                    'wifi_info': str([wifi_info]),
-                    'latency_info': str(latency_info),
-                    'bandwidth_info': str(bandwidth_info),
-                    'handover_info': str(handover_info)
-                })
-                
-                info(f"   📊 Dados: {wifi_info} | {latency_info} | {bandwidth_info} | {handover_info}\n")
+                    # Coletar dados completos
+                    wifi_info = obter_info_wifi_detalhada(sta, sta_conf["name"])
+                    latency_info = obter_latencia_completa(sta)
+                    bandwidth_info = obter_bandwidth_iperf3(sta)
+                    
+                    # Handover automático ou detecção manual
+                    if auto_handover:
+                        handover_info = monitorar_e_forcar_handover(sta, sta_conf["name"], threshold, hysteresis)
+                    else:
+                        handover_info = detectar_handover(sta, sta_conf["name"], ap_objs, ap_anterior)
+                    
+                    # Determinar AP atual
+                    ap_atual = None
+                    for ap_name, ap in ap_objs.items():
+                        try:
+                            ap_ip = f"10.0.0.{list(ap_objs.keys()).index(ap_name) + 1}"
+                            ping_result = sta.cmd(f'ping -c 1 -W 1 {ap_ip}')
+                            if '1 received' in ping_result or '1 packets received' in ping_result:
+                                ap_atual = ap_name
+                                break
+                        except:
+                            continue
+                    
+                    # Atualizar handover se necessário
+                    if ap_anterior and ap_atual and ap_atual != ap_anterior:
+                        handover_info = {
+                            'handover': True,
+                            'new_bssid': ap_atual
+                        }
+                    
+                    ap_anterior = ap_atual
+                    
+                    writer.writerow({
+                        'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                        'wifi_info': str([wifi_info]),
+                        'latency_info': str(latency_info),
+                        'bandwidth_info': str(bandwidth_info),
+                        'handover_info': str(handover_info)
+                    })
+                    
+                    info(f"   📊 Dados: {wifi_info} | {latency_info} | {bandwidth_info} | {handover_info}\n")
     
     info("*** ✅ Simulação v4.0 concluída!\n")
     info("*** 📁 Logs salvos em results/\n")
