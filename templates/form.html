@@ -36,35 +36,129 @@
             <label>SSID</label>
             <input type="text" class="form-control" name="ssid" value="{{ ssid or 'meshNet' }}">
         </div>
-        <div class="mb-3">
-            <label>Canal</label>
-            <input type="number" class="form-control" name="channel" value="{{ channel or 1 }}">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label>Canal WiFi</label>
+                    <select class="form-control" name="channel">
+                        <option value="1" selected>Canal 1 (2.412 GHz)</option>
+                        <option value="6">Canal 6 (2.437 GHz)</option>
+                        <option value="11">Canal 11 (2.462 GHz)</option>
+                        <option value="2">Canal 2 (2.417 GHz)</option>
+                        <option value="3">Canal 3 (2.422 GHz)</option>
+                        <option value="4">Canal 4 (2.427 GHz)</option>
+                        <option value="5">Canal 5 (2.432 GHz)</option>
+                        <option value="7">Canal 7 (2.442 GHz)</option>
+                        <option value="8">Canal 8 (2.447 GHz)</option>
+                        <option value="9">Canal 9 (2.452 GHz)</option>
+                        <option value="10">Canal 10 (2.457 GHz)</option>
+                        <option value="12">Canal 12 (2.467 GHz)</option>
+                        <option value="13">Canal 13 (2.472 GHz)</option>
+                    </select>
+                    <small class="form-text text-muted">Canais 1, 6, 11 não interferem entre si</small>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label>Alcance dos APs (metros)</label>
+                    <input type="number" class="form-control" name="ap_range" value="30" min="10" max="100">
+                    <small class="form-text text-muted">Distância máxima que o sinal do AP alcança</small>
+                </div>
+            </div>
         </div>
         <div class="mb-3">
             <label>Tempo de espera (s)</label>
             <input type="number" class="form-control" name="wait" value="{{ wait or 2 }}">
         </div>
+        
         <hr>
-        <h4>APs</h4>
+        <h4>⚙️ Configurações Avançadas - Handover Automático</h4>
+        <div class="alert alert-info">
+            <p><strong>🔄 Handover Automático:</strong> Quando ativado, as stations trocam automaticamente de AP quando encontram sinal melhor, simulando comportamento real de dispositivos móveis.</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label>Ativar Handover Automático</label>
+                    <select class="form-control" name="handover_enabled">
+                        <option value="true" selected>✅ Sim</option>
+                        <option value="false">❌ Não</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label>Threshold RSSI (dBm)</label>
+                    <input type="number" class="form-control" name="handover_threshold" value="-65" min="-100" max="-30">
+                    <small class="form-text text-muted">Sinal mínimo para considerar AP válido (-65 = bom, -80 = fraco)</small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label>Histerese (dBm)</label>
+                    <input type="number" class="form-control" name="handover_hysteresis" value="5" min="1" max="20">
+                    <small class="form-text text-muted">Diferença mínima para trocar AP (evita oscilação)</small>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <h4>📡 APs (Access Points)</h4>
+        <div class="alert alert-warning">
+            <p><strong>💡 Dicas para posicionar APs:</strong></p>
+            <ul>
+                <li><strong>Linha reta:</strong> APs em linha para testar handover sequencial</li>
+                <li><strong>Triângulo:</strong> APs em triângulo para cobertura 360°</li>
+                <li><strong>Quadrado:</strong> APs nos cantos para cobertura completa</li>
+                <li><strong>Distância:</strong> Mantenha APs a 15-25 metros entre si para handover suave</li>
+            </ul>
+        </div>
         <div id="aps">
             {% for ap in aps %}
             <div class="row mb-2">
-                <div class="col"><input type="text" class="form-control" name="ap_name" value="{{ ap.name }}" placeholder="Nome"></div>
-                <div class="col"><input type="number" class="form-control" name="ap_x" value="{{ ap.x }}" placeholder="X"></div>
-                <div class="col"><input type="number" class="form-control" name="ap_y" value="{{ ap.y }}" placeholder="Y"></div>
+                <div class="col-md-2"><input type="text" class="form-control" name="ap_name" value="{{ ap.name }}" placeholder="Nome (ex: ap1)"></div>
+                <div class="col-md-2"><input type="number" class="form-control" name="ap_x" value="{{ ap.x }}" placeholder="X (0-50)"></div>
+                <div class="col-md-2"><input type="number" class="form-control" name="ap_y" value="{{ ap.y }}" placeholder="Y (0-50)"></div>
+                <div class="col-md-3"><input type="number" class="form-control" name="ap_range" value="{{ ap.range or 30 }}" placeholder="Alcance (m)" min="10" max="100"></div>
+                <div class="col-md-3">
+                    <select class="form-control" name="ap_channel">
+                        <option value="1" {% if ap.channel == 1 %}selected{% endif %}>Canal 1</option>
+                        <option value="6" {% if ap.channel == 6 %}selected{% endif %}>Canal 6</option>
+                        <option value="11" {% if ap.channel == 11 %}selected{% endif %}>Canal 11</option>
+                        <option value="2" {% if ap.channel == 2 %}selected{% endif %}>Canal 2</option>
+                        <option value="3" {% if ap.channel == 3 %}selected{% endif %}>Canal 3</option>
+                        <option value="4" {% if ap.channel == 4 %}selected{% endif %}>Canal 4</option>
+                        <option value="5" {% if ap.channel == 5 %}selected{% endif %}>Canal 5</option>
+                        <option value="7" {% if ap.channel == 7 %}selected{% endif %}>Canal 7</option>
+                        <option value="8" {% if ap.channel == 8 %}selected{% endif %}>Canal 8</option>
+                        <option value="9" {% if ap.channel == 9 %}selected{% endif %}>Canal 9</option>
+                        <option value="10" {% if ap.channel == 10 %}selected{% endif %}>Canal 10</option>
+                        <option value="12" {% if ap.channel == 12 %}selected{% endif %}>Canal 12</option>
+                        <option value="13" {% if ap.channel == 13 %}selected{% endif %}>Canal 13</option>
+                    </select>
+                </div>
             </div>
             {% endfor %}
         </div>
         <button type="button" class="btn btn-secondary mb-3" onclick="addAP()">Adicionar AP</button>
         <hr>
-        <h4>Stations</h4>
+        <h4>📱 Stations (Dispositivos Móveis)</h4>
+        <div class="alert alert-info">
+            <p><strong>💡 Dicas para trajetórias:</strong></p>
+            <ul>
+                <li><strong>Linha reta:</strong> <code>15,20;25,20;35,20</code> - Atravessa APs em linha</li>
+                <li><strong>Triângulo:</strong> <code>15,15;25,15;20,25;15,15</code> - Movimento circular</li>
+                <li><strong>Zigzag:</strong> <code>10,10;30,10;10,30;30,30</code> - Testa múltiplos APs</li>
+                <li><strong>Volta completa:</strong> <code>5,5;45,5;45,45;5,45;5,5</code> - Contorna toda área</li>
+            </ul>
+        </div>
         <div id="stations">
             {% for sta in stations %}
             <div class="row mb-2">
-                <div class="col"><input type="text" class="form-control" name="sta_name" value="{{ sta.name }}" placeholder="Nome"></div>
-                <div class="col"><input type="number" class="form-control" name="sta_start_x" value="{{ sta.start_x }}" placeholder="X inicial"></div>
-                <div class="col"><input type="number" class="form-control" name="sta_start_y" value="{{ sta.start_y }}" placeholder="Y inicial"></div>
-                <div class="col"><input type="text" class="form-control" name="sta_traj" value="{{ sta.trajectory|join(';') }}" placeholder="Trajetória (ex: 10,10;20,20)"></div>
+                <div class="col-md-2"><input type="text" class="form-control" name="sta_name" value="{{ sta.name }}" placeholder="Nome (ex: sta1)"></div>
+                <div class="col-md-2"><input type="number" class="form-control" name="sta_start_x" value="{{ sta.start_x }}" placeholder="X inicial (0-50)"></div>
+                <div class="col-md-2"><input type="number" class="form-control" name="sta_start_y" value="{{ sta.start_y }}" placeholder="Y inicial (0-50)"></div>
+                <div class="col-md-6"><input type="text" class="form-control" name="sta_traj" value="{{ sta.trajectory|join(';') }}" placeholder="Trajetória: 15,20;25,20;35,20"></div>
             </div>
             {% endfor %}
         </div>
@@ -137,19 +231,21 @@ function addAP() {
     var aps = document.getElementById('aps');
     var row = document.createElement('div');
     row.className = 'row mb-2';
-    row.innerHTML = '<div class="col"><input type="text" class="form-control" name="ap_name" placeholder="Nome"></div>' +
-        '<div class="col"><input type="number" class="form-control" name="ap_x" placeholder="X"></div>' +
-        '<div class="col"><input type="number" class="form-control" name="ap_y" placeholder="Y"></div>';
+    row.innerHTML = '<div class="col-md-2"><input type="text" class="form-control" name="ap_name" placeholder="Nome (ex: ap1)"></div>' +
+        '<div class="col-md-2"><input type="number" class="form-control" name="ap_x" placeholder="X (0-50)"></div>' +
+        '<div class="col-md-2"><input type="number" class="form-control" name="ap_y" placeholder="Y (0-50)"></div>' +
+        '<div class="col-md-3"><input type="number" class="form-control" name="ap_range" value="30" placeholder="Alcance (m)" min="10" max="100"></div>' +
+        '<div class="col-md-3"><select class="form-control" name="ap_channel"><option value="1">Canal 1</option><option value="6">Canal 6</option><option value="11">Canal 11</option><option value="2">Canal 2</option><option value="3">Canal 3</option><option value="4">Canal 4</option><option value="5">Canal 5</option><option value="7">Canal 7</option><option value="8">Canal 8</option><option value="9">Canal 9</option><option value="10">Canal 10</option><option value="12">Canal 12</option><option value="13">Canal 13</option></select></div>';
     aps.appendChild(row);
 }
 function addStation() {
     var stas = document.getElementById('stations');
     var row = document.createElement('div');
     row.className = 'row mb-2';
-    row.innerHTML = '<div class="col"><input type="text" class="form-control" name="sta_name" placeholder="Nome"></div>' +
-        '<div class="col"><input type="number" class="form-control" name="sta_start_x" placeholder="X inicial"></div>' +
-        '<div class="col"><input type="number" class="form-control" name="sta_start_y" placeholder="Y inicial"></div>' +
-        '<div class="col"><input type="text" class="form-control" name="sta_traj" placeholder="Trajetória (ex: 10,10;20,20)"></div>';
+    row.innerHTML = '<div class="col-md-2"><input type="text" class="form-control" name="sta_name" placeholder="Nome (ex: sta1)"></div>' +
+        '<div class="col-md-2"><input type="number" class="form-control" name="sta_start_x" placeholder="X inicial (0-50)"></div>' +
+        '<div class="col-md-2"><input type="number" class="form-control" name="sta_start_y" placeholder="Y inicial (0-50)"></div>' +
+        '<div class="col-md-6"><input type="text" class="form-control" name="sta_traj" placeholder="Trajetória: 15,20;25,20;35,20"></div>';
     stas.appendChild(row);
 }
 </script>

@@ -1,7 +1,0 @@
-time,position,rssi,latency_ms,ap_conectado,aps_visiveis
-2025-07-02 14:45:50,"15.0,15.0",-100,0.048,desconectado,nenhum_ap_detectado
-2025-07-02 14:46:02,"12.0,15.0",-36,0.025,ap1,meshNet:-36;meshNet:-36;meshNet:-36
-2025-07-02 14:46:14,"18.0,15.0",-36,0.045,ap1,meshNet:-36;meshNet:-36;meshNet:-36
-2025-07-02 14:46:26,"15.0,18.0",-36,0.030,ap1,meshNet:-36;meshNet:-36;meshNet:-36
-2025-07-02 14:46:38,"15.0,12.0",-36,0.031,ap1,meshNet:-36;meshNet:-36;meshNet:-36
-2025-07-02 14:46:50,"15.0,15.0",-36,0.047,ap1,meshNet:-36;meshNet:-36;meshNet:-36

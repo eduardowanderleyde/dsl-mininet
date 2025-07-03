@@ -27,14 +27,30 @@ def novo():
         ssid = request.form.get('ssid', 'meshNet')
         channel = int(request.form.get('channel', 1))
         wait = int(request.form.get('wait', 2))
+        ap_range = int(request.form.get('ap_range', 30))
+        
+        # Configurações de handover automático
+        handover_enabled = request.form.get('handover_enabled', 'true') == 'true'
+        handover_threshold = int(request.form.get('handover_threshold', -65))
+        handover_hysteresis = int(request.form.get('handover_hysteresis', 5))
+        
         # APs
         ap_names = request.form.getlist('ap_name')
         ap_xs = request.form.getlist('ap_x')
         ap_ys = request.form.getlist('ap_y')
+        ap_ranges = request.form.getlist('ap_range')
+        ap_channels = request.form.getlist('ap_channel')
         aps = []
-        for n, x, y in zip(ap_names, ap_xs, ap_ys):
+        for n, x, y, r, c in zip(ap_names, ap_xs, ap_ys, ap_ranges, ap_channels):
             if n.strip() != '':
-                aps.append({"name": n.strip(), "x": float(x), "y": float(y)})
+                aps.append({
+                    "name": n.strip(), 
+                    "x": float(x), 
+                    "y": float(y),
+                    "range": int(r) if r else ap_range,
+                    "channel": int(c) if c else channel
+                })
+        
         # Stations
         sta_names = request.form.getlist('sta_name')
         sta_start_xs = request.form.getlist('sta_start_x')
@@ -56,12 +72,18 @@ def novo():
                     "start_y": float(y),
                     "trajectory": traj_list
                 })
+        
         config = {
             "ssid": ssid,
             "channel": channel,
             "wait": wait,
             "aps": aps,
-            "stations": stations
+            "stations": stations,
+            "handover": {
+                "enabled": handover_enabled,
+                "threshold": handover_threshold,
+                "hysteresis": handover_hysteresis
+            }
         }
         nome = f"cenario_{ssid}_{len(os.listdir(CENARIOS_DIR))}.json"
         with open(os.path.join(CENARIOS_DIR, nome), 'w') as f:
@@ -113,6 +135,111 @@ def view_log(nome):
         flash(f'Erro ao ler arquivo: {e}', 'danger')
         return redirect(url_for('logs'))
 
+@app.route('/tutorial')
+def tutorial():
+    """Página de tutorial completo do DSL Mininet-WiFi v4.0"""
+    return render_template('tutorial.html')
+
+@app.route('/limpar_arquivos_antigos')
+def limpar_arquivos_antigos():
+    """Remove arquivos antigos e desnecessários"""
+    arquivos_para_remover = [
+        # Scripts antigos (funcionalidade integrada na v4.0)
+        'executa_cenario_mesh_v2.py',
+        'executa_cenario_mesh_v3.py',
+        'executa_cenario_scan_wifi.py',
+        'executa_raspberry_movel.py',
+        'executa_cenario_handover_forcado.py',
+        'executa_cenario_mesh.py',
+        'executa_cenario.py',
+        
+        # Scripts de teste (não mais necessários)
+        'teste_novas_ferramentas.py',
+        'teste_todos_cenarios.py',
+        'teste_limites_conectividade.py',
+        'teste_manual_incremental.py',
+        'teste_cenarios.py',
+        
+        # Scripts de análise (funcionalidade integrada)
+        'analisador_performance_avancado.py',
+        'analisar_raspberry_pi.py',
+        'analisar_mesh.py',
+        'analisar_logs.py',
+        'gerador_relatorios.py',
+        
+        # Documentação antiga (redundante)
+        'SUGESTOES_MELHORIAS_FERRAMENTAS.md',
+        'ESTADO_ATUAL_CENARIOS.md',
+        'MELHORIAS_IMPLEMENTADAS_V3.md',
+        'ANALISE_FUNCOES_MELHORIAS.md',
+        'CORRECOES_NOMES_STATIONS.md',
+        'RESUMO_DESCOBERTAS.md',
+        'DOCUMENTACAO_TESTES.md',
+        'RELATORIO_LIMITES_CONECTIVIDADE.md',
+        'IMPLEMENTACAO_MESH_MONITORING.md',
+        'DOCUMENTACAO_COMPLETA.md',
+        
+        # Arquivos temporários e antigos
+        '1.txt',
+        'station1_log.csv',
+        'cenario_meshNet_1.json',
+        'cenario_exemplo_3.json',
+        'Dockerfile'
+    ]
+    
+    arquivos_removidos = []
+    for arquivo in arquivos_para_remover:
+        if os.path.exists(arquivo):
+            try:
+                os.remove(arquivo)
+                arquivos_removidos.append(arquivo)
+            except Exception as e:
+                print(f"Erro ao remover {arquivo}: {e}")
+    
+    # Limpar logs antigos em results/
+    if os.path.exists('results'):
+        logs_antigos = [
+            'sta1_metrics.csv', 'sta2_metrics.csv', 'sta1_mesh_v2_log.csv',
+            'mesh_topology_v2.csv', 'mobile_sta_mesh_v2_log.csv',
+            'raspberrypi_mesh_v2_log.csv', 'raspberry_pi_mesh_v2_log.csv',
+            'sta2_mesh_v2_log.csv', 'sta1_mesh_log.csv', 'mesh_topology.csv',
+            'sta1_log.csv', 'sta2_log.csv', 'handover_events.csv',
+            'network_metrics.csv', 'complete_logs.json'
+        ]
+        
+        for log in logs_antigos:
+            log_path = os.path.join('results', log)
+            if os.path.exists(log_path):
+                try:
+                    os.remove(log_path)
+                    arquivos_removidos.append(f"results/{log}")
+                except Exception as e:
+                    print(f"Erro ao remover {log}: {e}")
+    
+    # Limpar pasta cenarios_novos se existir
+    if os.path.exists('cenarios_novos'):
+        try:
+            import shutil
+            # Mover cenários úteis para a pasta principal
+            cenarios_novos = os.listdir('cenarios_novos')
+            for cenario in cenarios_novos:
+                if cenario.endswith('.json'):
+                    origem = os.path.join('cenarios_novos', cenario)
+                    destino = os.path.join('cenarios', cenario)
+                    if not os.path.exists(destino):  # Só move se não existir
+                        shutil.move(origem, destino)
+                        arquivos_removidos.append(f"Movido: {cenario}")
+            
+            # Remover pasta cenarios_novos se vazia
+            if not os.listdir('cenarios_novos'):
+                shutil.rmtree('cenarios_novos')
+                arquivos_removidos.append("Pasta cenarios_novos removida")
+        except Exception as e:
+            print(f"Erro ao processar cenarios_novos: {e}")
+    
+    flash(f'Limpeza concluída! {len(arquivos_removidos)} arquivos processados.', 'success')
+    return redirect(url_for('index'))
+
 def executar_remoto(nome_arquivo_local, nome_arquivo_remoto):
     print(f"[LOG] Iniciando execução remota...")
     print(f"[LOG] Conectando em {SSH_HOST} como {SSH_USER} usando chave {SSH_KEY}")
@@ -142,21 +269,21 @@ def executar_remoto(nome_arquivo_local, nome_arquivo_remoto):
         cd {REMOTE_PATH}
         
         # Tentar diferentes métodos de execução
-        echo "=== Tentando executar Mininet ==="
+        echo "=== Tentando executar Mininet v4.0 SUPER COMPLETA ==="
         
-        # Método 1: Tentar sudo com versão 3 (melhorada)
-        echo "Método 1: sudo com versão 3"
-        sudo python3 executa_cenario_mesh_v3.py {nome_arquivo_remoto} 2>&1 || {{
+        # Método 1: Tentar sudo com versão 4.0 (SUPER COMPLETA)
+        echo "Método 1: sudo com versão 4.0 SUPER COMPLETA"
+        sudo python3 executa_cenario_mesh_v4.py {nome_arquivo_remoto} 2>&1 || {{
             echo "Sudo falhou, tentando método 2..."
             
-            # Método 2: Tentar pkexec com versão 3
-            echo "Método 2: pkexec com versão 3"
-            pkexec python3 executa_cenario_mesh_v3.py {nome_arquivo_remoto} 2>&1 || {{
+            # Método 2: Tentar pkexec com versão 4.0
+            echo "Método 2: pkexec com versão 4.0 SUPER COMPLETA"
+            pkexec python3 executa_cenario_mesh_v4.py {nome_arquivo_remoto} 2>&1 || {{
                 echo "Pkexec falhou, tentando método 3..."
                 
                 # Método 3: Tentar executar como usuário normal (vai falhar mas mostrar erro claro)
-                echo "Método 3: usuário normal com versão 3"
-                python3 executa_cenario_mesh_v3.py {nome_arquivo_remoto} 2>&1
+                echo "Método 3: usuário normal com versão 4.0"
+                python3 executa_cenario_mesh_v4.py {nome_arquivo_remoto} 2>&1
             }}
         }}
         """

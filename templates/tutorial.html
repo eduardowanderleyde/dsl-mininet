@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial DSL Mininet-WiFi v4.0</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        .feature-box {
+            border-left: 4px solid #007bff;
+            padding-left: 15px;
+            margin: 10px 0;
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+        }
+        .step-number {
+            background-color: #007bff;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+        .warning-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1>📚 Tutorial Completo - DSL Mininet-WiFi v4.0</h1>
+            <p class="lead">Guia completo para usar a versão mais avançada do DSL Mininet-WiFi</p>
+            
+            <div class="alert alert-success">
+                <h4>🎯 O que é o DSL Mininet-WiFi v4.0?</h4>
+                <p>É uma ferramenta SUPER COMPLETA que simula redes WiFi mesh e coleta TODAS as informações possíveis:</p>
+                <ul>
+                    <li><strong>SSID e BSSID detalhados</strong> - Identificação completa das redes</li>
+                    <li><strong>RSSI com qualidade</strong> - Força do sinal em dBm</li>
+                    <li><strong>Latência com packet loss</strong> - Performance da rede</li>
+                    <li><strong>Bandwidth/Throughput (iperf3)</strong> - Velocidade real da conexão</li>
+                    <li><strong>Handover inteligente</strong> - Detecção automática de mudança de AP</li>
+                    <li><strong>Scan completo de redes</strong> - Descoberta de todas as redes disponíveis</li>
+                </ul>
+            </div>
+
+            <h2>🚀 Fluxo Ideal de Uso</h2>
+            
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3>Passo 1: Criar um Cenário</h3>
+                </div>
+                <div class="card-body">
+                    <div class="step-number">1</div>
+                    <strong>Clique em "➕ Novo Cenário"</strong>
+                    <p>Configure:</p>
+                    <ul>
+                        <li><strong>SSID:</strong> Nome da rede WiFi (ex: "meshNet")</li>
+                        <li><strong>Canal:</strong> Canal WiFi (1-13)</li>
+                        <li><strong>Tempo de espera:</strong> Entre movimentos (segundos)</li>
+                    </ul>
+                    
+                    <h5>📡 Configurar Access Points (APs):</h5>
+                    <div class="code-block">
+Nome: ap1, Posição: 10,10
+Nome: ap2, Posição: 50,10
+Nome: ap3, Posição: 30,50
+                    </div>
+                    
+                    <h5>📱 Configurar Stations (Dispositivos móveis):</h5>
+                    <div class="code-block">
+Nome: sta1, Início: 5,5, Trajetória: 10,10;20,20;30,30
+Nome: sta2, Início: 15,15, Trajetória: 25,25;35,35;45,45
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3>Passo 2: Visualizar o Cenário</h3>
+                </div>
+                <div class="card-body">
+                    <div class="step-number">2</div>
+                    <strong>Clique em "Preview"</strong>
+                    <p>Verifique se a configuração está correta antes de executar.</p>
+                    <div class="warning-box">
+                        <strong>⚠️ Dica:</strong> Certifique-se de que as trajetórias das stations passem por áreas cobertas pelos APs para testar handover.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3>Passo 3: Executar a Simulação</h3>
+                </div>
+                <div class="card-body">
+                    <div class="step-number">3</div>
+                    <strong>Clique em "Executar"</strong>
+                    <p>A simulação irá:</p>
+                    <ol>
+                        <li>Criar a rede mesh com os APs configurados</li>
+                        <li>Posicionar as stations nos pontos iniciais</li>
+                        <li>Mover as stations pela trajetória definida</li>
+                        <li>Coletar dados completos a cada posição:
+                            <ul>
+                                <li>📶 Informações WiFi (SSID, BSSID, RSSI)</li>
+                                <li>⏱️ Latência e packet loss</li>
+                                <li>🚀 Bandwidth usando iperf3</li>
+                                <li>🔄 Detecção de handover</li>
+                            </ul>
+                        </li>
+                        <li>Salvar todos os dados em arquivos CSV</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3>Passo 4: Analisar os Resultados</h3>
+                </div>
+                <div class="card-body">
+                    <div class="step-number">4</div>
+                    <strong>Clique em "📊 Ver Logs"</strong>
+                    <p>Você encontrará arquivos CSV com:</p>
+                    
+                    <h5>📋 Estrutura dos Logs:</h5>
+                    <div class="code-block">
+timestamp,wifi_info,latency_info,bandwidth_info,handover_info
+2024-01-15 10:30:15,"[{'SSID': 'meshNet', 'BSSID': '00:11:22:33:44:55', 'Signal Level (dBm)': -45}]","{'latency_ms': 2.5, 'packet_loss': False}","{'bandwidth_mbps': 25.6}","{'handover': False}"
+                    </div>
+                    
+                    <h5>📊 Dados Coletados:</h5>
+                    <ul>
+                        <li><strong>wifi_info:</strong> Lista com SSID, BSSID e força do sinal</li>
+                        <li><strong>latency_info:</strong> Latência em ms e status de packet loss</li>
+                        <li><strong>bandwidth_info:</strong> Velocidade em Mbps ou erro</li>
+                        <li><strong>handover_info:</strong> Detecção de mudança de AP</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>🔧 Funcionalidades Avançadas</h2>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="feature-box">
+                        <h4>🔄 Handover Inteligente</h4>
+                        <p>Detecta automaticamente quando uma station muda de AP baseado em:</p>
+                        <ul>
+                            <li>Ping para diferentes IPs dos APs</li>
+                            <li>Mudança de BSSID</li>
+                            <li>Variação significativa de RSSI</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="feature-box">
+                        <h4>📡 Scan Completo</h4>
+                        <p>Se não conseguir informações via <code>iw link</code>, executa:</p>
+                        <ul>
+                            <li>Scan completo da rede</li>
+                            <li>Descoberta de todas as redes disponíveis</li>
+                            <li>Identificação de BSSID e SSID</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="feature-box">
+                        <h4>🚀 Teste de Bandwidth</h4>
+                        <p>Usa iperf3 para medir velocidade real:</p>
+                        <ul>
+                            <li>Inicia servidor iperf3 em background</li>
+                            <li>Executa teste de download</li>
+                            <li>Parseia resultado JSON</li>
+                            <li>Retorna velocidade em Mbps</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="feature-box">
+                        <h4>⏱️ Latência com Packet Loss</h4>
+                        <p>Teste completo de conectividade:</p>
+                        <ul>
+                            <li>Ping para gateway (10.0.0.1)</li>
+                            <li>Extrai latência em milissegundos</li>
+                            <li>Detecta packet loss</li>
+                            <li>Timeout de 2 segundos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h2>⚠️ Requisitos e Configuração</h2>
+            
+            <div class="warning-box">
+                <h4>🔧 Pré-requisitos:</h4>
+                <ul>
+                    <li><strong>Mininet-WiFi</strong> instalado e configurado</li>
+                    <li><strong>Python 3</strong> com bibliotecas: mininet, mininet_wifi</li>
+                    <li><strong>iperf3</strong> instalado no sistema</li>
+                    <li><strong>Permissões sudo</strong> para executar Mininet</li>
+                </ul>
+            </div>
+
+            <div class="code-block">
+# Instalar dependências
+sudo apt-get install iperf3
+pip install mininet-wifi
+
+# Executar simulação
+sudo python3 executa_cenario_mesh_v4.py cenario_exemplo.json
+            </div>
+
+            <h2>📁 Estrutura de Arquivos</h2>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>📂 Arquivos Principais:</h5>
+                    <ul>
+                        <li><code>executa_cenario_mesh_v4.py</code> - Script principal v4.0</li>
+                        <li><code>app.py</code> - Interface web</li>
+                        <li><code>cenarios/</code> - Pasta com cenários JSON</li>
+                        <li><code>results/</code> - Pasta com logs CSV</li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-6">
+                    <h5>🧹 Limpeza Automática:</h5>
+                    <p>Use o botão "🧹 Limpar Arquivos Antigos" para remover:</p>
+                    <ul>
+                        <li>Versões antigas (v2, v3)</li>
+                        <li>Scripts de teste</li>
+                        <li>Logs antigos</li>
+                        <li>Arquivos temporários</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>🎯 Dicas de Uso</h2>
+            
+            <div class="alert alert-info">
+                <h4>💡 Melhores Práticas:</h4>
+                <ol>
+                    <li><strong>Posicione APs estrategicamente</strong> para testar handover</li>
+                    <li><strong>Use trajetórias que cruzam áreas de cobertura</strong> de múltiplos APs</li>
+                    <li><strong>Configure tempo de espera adequado</strong> (2-5 segundos)</li>
+                    <li><strong>Monitore os logs em tempo real</strong> durante execução</li>
+                    <li><strong>Analise os dados CSV</strong> para identificar padrões</li>
+                </ol>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="/" class="btn btn-primary">🏠 Voltar ao Início</a>
+                <a href="/novo" class="btn btn-success">➕ Criar Primeiro Cenário</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html> 

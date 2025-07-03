@@ -1,8 +1,0 @@
-time,topology,links
-2025-07-01 15:38:59,"388e7c08-2601-4cf1-be34-d3ed154fe70f
-    Bridge ap1
-        Controller ""tcp:127.0.0.1:6653""
-            is_connected: true
-        fail_mode: secure
-        Port ap1-wlan1
-            Interface ap1-wl...","[{'from': 'ap1', 'to': 'ap1', 'port': 'ap1-wlan1'}, {'from': 'ap2', 'to': 'ap2', 'port': 'ap2-wlan1'}]"

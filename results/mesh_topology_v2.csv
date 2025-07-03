@@ -1,2 +1,0 @@
-time,total_aps,aps_ativos,links_mesh,controller_status,links_detalhados
-2025-07-02 14:45:50,3,3,6,disconnected,"[{'from': 'ap1', 'to': 'ap2', 'port': 'route', 'type': 'network_route'}, {'from': 'ap1', 'to': 'ap3', 'port': 'route', 'type': 'network_route'}, {'from': 'ap2', 'to': 'ap1', 'port': 'route', 'type': 'network_route'}, {'from': 'ap2', 'to': 'ap3', 'port': 'route', 'type': 'network_route'}, {'from': 'ap3', 'to': 'ap1', 'port': 'route', 'type': 'network_route'}, {'from': 'ap3', 'to': 'ap2', 'port': 'route', 'type': 'network_route'}]"
