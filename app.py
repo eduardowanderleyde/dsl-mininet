@@ -1,8 +1,12 @@
 import os
 import json
 import subprocess
+import uuid
+from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory, flash
 import paramiko
+from logger_config import robo_logger
+from raspberry_connection import raspberry_conn
 
 app = Flask(__name__)
 app.secret_key = 'segredo-super-simples'
@@ -531,99 +535,177 @@ if __name__ == "__main__":
     return script
 
 def enviar_para_robo(script_path, config):
-    """Tenta enviar script para o robô via diferentes métodos"""
+    """Envia script para o robô usando conexão persistente"""
     
     saida = []
+    session_id = str(uuid.uuid4())[:8]
     
-    # Método 1: Tentar via USB/Serial
-    saida.append("=== Tentando conectar via USB/Serial ===")
+    # Log do início da execução
+    robo_logger.log_execucao_robo(
+        os.path.basename(script_path), 
+        "iniciando", 
+        f"Sessão {session_id} - Enviando script para robô"
+    )
+    
+    saida.append(f"🆔 Sessão: {session_id}")
+    saida.append("🚀 Iniciando execução no robô...")
+    saida.append(f"📋 Cenário: {os.path.basename(script_path)}")
+    saida.append(f"⏰ Início: {datetime.now().strftime('%H:%M:%S')}")
+    
+    # Método 1: Tentar via USB/Serial (fallback)
+    saida.append("\n=== Tentando conectar via USB/Serial ===")
     try:
         import serial
-        # Listar portas disponíveis
         import glob
         portas = glob.glob('/dev/ttyUSB*') + glob.glob('/dev/ttyACM*')
-        
         if portas:
             saida.append(f"📡 Portas encontradas: {portas}")
-            
-            # Tentar conectar na primeira porta
             porta = portas[0]
             saida.append(f"🔌 Tentando conectar em {porta}...")
-            
             ser = serial.Serial(porta, 9600, timeout=1)
             ser.write(b"TEST\n")
             resposta = ser.readline().decode().strip()
             ser.close()
-            
             if resposta:
-                saida.append(f"✅ Robô respondeu: {resposta}")
-                saida.append(f"📤 Enviando script para {porta}...")
-                return "Conectado via USB/Serial"
+                saida.append(f"✅ Robô USB respondeu: {resposta}")
+                robo_logger.log_execucao_robo(
+                    os.path.basename(script_path), 
+                    "usb_conectado", 
+                    f"Robô USB detectado em {porta}"
+                )
+                return "\n".join(saida)
             else:
-                saida.append("⚠️ Robô não respondeu")
+                saida.append("⚠️ Robô USB não respondeu")
         else:
             saida.append("❌ Nenhuma porta USB encontrada")
-            
     except Exception as e:
         saida.append(f"❌ Erro USB/Serial: {e}")
     
-    # Método 2: Tentar via SSH (se robô tiver IP)
-    saida.append("\n=== Tentando conectar via SSH ===")
+    # Método 2: Usar conexão persistente SSH
+    saida.append("\n=== Usando conexão persistente SSH ===")
+    saida.append(f"🔍 Status da conexão: {'✅ Conectado' if raspberry_conn.is_connected() else '❌ Desconectado'}")
     try:
-        # Configurações específicas do Raspberry Pi Zero 2 W
-        pi_config = {
-            'ip': '192.168.68.107',
-            'username': 'eduardowanderley',
-            'password': '200982'
-        }
-        
-        saida.append(f"🔍 Tentando conectar no Raspberry Pi Zero 2 W...")
-        saida.append(f"   IP: {pi_config['ip']}")
-        saida.append(f"   Usuário: {pi_config['username']}")
-        
-        try:
-            ssh = paramiko.SSHClient()
-            ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            ssh.connect(
-                pi_config['ip'], 
-                username=pi_config['username'], 
-                password=pi_config['password'], 
-                timeout=5
-            )
-            
+        saida.append("🔗 Verificando conexão SSH...")
+        if raspberry_conn.ensure_connection():
             saida.append("✅ Conexão SSH estabelecida!")
-            
-            # Enviar script via SCP
-            sftp = ssh.open_sftp()
-            remote_path = f'/home/{pi_config["username"]}/{os.path.basename(script_path)}'
-            sftp.put(script_path, remote_path)
-            sftp.close()
-            
-            saida.append(f"📤 Script enviado para: {remote_path}")
-            
+            # Verificar espaço em disco
+            saida.append("💾 Verificando espaço em disco...")
+            try:
+                disk_result = raspberry_conn.execute_command("df -h /home")
+                if disk_result['success']:
+                    saida.append(f"📊 Espaço disponível: {disk_result['output'].strip()}")
+                else:
+                    saida.append(f"⚠️ Erro ao verificar disco: {disk_result['error']}")
+            except Exception as e:
+                saida.append(f"❌ Exceção ao verificar disco: {e}")
+            # Enviar script
+            remote_path = f'/home/{raspberry_conn.username}/{os.path.basename(script_path)}'
+            saida.append(f"📤 Enviando script para: {remote_path}")
+            saida.append(f"📁 Tamanho do arquivo: {os.path.getsize(script_path)} bytes")
+            try:
+                saida.append("🔄 Iniciando upload...")
+                start_upload = datetime.now()
+                raspberry_conn.upload_file(script_path, remote_path)
+                upload_time = (datetime.now() - start_upload).total_seconds()
+                saida.append(f"✅ Script enviado com sucesso! (Tempo: {upload_time:.2f}s)")
+            except Exception as e:
+                saida.append(f"❌ Erro no upload: {e}")
+                return "\n".join(saida)
+            # Verificar se arquivo foi criado
+            saida.append("🔍 Verificando arquivo no Raspberry Pi...")
+            try:
+                check_result = raspberry_conn.execute_command(f"ls -la {remote_path}")
+                if check_result['success']:
+                    saida.append(f"📄 Arquivo criado: {check_result['output'].strip()}")
+                else:
+                    saida.append(f"⚠️ Erro ao verificar arquivo: {check_result['error']}")
+            except Exception as e:
+                saida.append(f"❌ Exceção ao verificar arquivo: {e}")
             # Executar no robô
             comando_execucao = f'python3 {remote_path}'
             saida.append(f"🚀 Executando: {comando_execucao}")
-            
-            stdin, stdout, stderr = ssh.exec_command(comando_execucao)
-            saida.append("✅ Script iniciado no Raspberry Pi!")
-            
-            ssh.close()
-            return f"Conectado via SSH ({pi_config['ip']})"
-            
-        except Exception as e:
-            saida.append(f"❌ Erro SSH: {e}")
-            saida.append("❌ Não foi possível conectar no Raspberry Pi")
-        
+            saida.append("⏳ Iniciando execução em background...")
+            try:
+                saida.append("🔄 Preparando comando nohup...")
+                comando_nohup = f'nohup {comando_execucao} > robo_output_{session_id}.log 2>&1 & echo $!'
+                saida.append(f"📝 Comando completo: {comando_nohup}")
+                start_exec = datetime.now()
+                saida.append("⚡ Executando comando...")
+                result = raspberry_conn.execute_command(comando_nohup)
+                exec_time = (datetime.now() - start_exec).total_seconds()
+                saida.append(f"⏱️ Comando executado em {exec_time:.2f}s")
+            except Exception as e:
+                saida.append(f"❌ Erro ao executar comando: {e}")
+                return "\n".join(saida)
+            if result['success']:
+                saida.append("✅ Comando executado com sucesso!")
+                saida.append(f"📄 Saída do comando: '{result['output'].strip()}'")
+                pid = result['output'].strip()
+                if pid.isdigit():
+                    saida.append(f"✅ Script iniciado no Raspberry Pi!")
+                    saida.append(f"🆔 PID do processo: {pid}")
+                    saida.append(f"⏱️ Tempo de execução: {exec_time:.2f}s")
+                    saida.append(f"📊 Log file: robo_output_{session_id}.log")
+                    saida.append("🔄 Monitorando execução em background...")
+                    saida.append("🔍 Verificando se processo está ativo...")
+                    try:
+                        ps_result = raspberry_conn.execute_command(f"ps -p {pid}")
+                        if ps_result['success'] and pid in ps_result['output']:
+                            saida.append("✅ Processo confirmado ativo!")
+                        else:
+                            saida.append("⚠️ Processo não encontrado - pode ter terminado rapidamente")
+                    except Exception as e:
+                        saida.append(f"❌ Erro ao verificar processo: {e}")
+                else:
+                    saida.append(f"⚠️ PID inválido retornado: '{pid}'")
+                    saida.append("🔍 Verificando se processo foi iniciado...")
+                    try:
+                        ps_result = raspberry_conn.execute_command("ps aux | grep python3 | grep -v grep")
+                        if ps_result['success']:
+                            saida.append(f"📊 Processos Python ativos: {ps_result['output'].strip()}")
+                    except Exception as e:
+                        saida.append(f"❌ Erro ao verificar processos: {e}")
+                robo_logger.log_execucao_robo(
+                    os.path.basename(script_path), 
+                    "executando", 
+                    f"Script iniciado - PID: {pid}, Log: robo_output_{session_id}.log, Tempo: {exec_time:.2f}s"
+                )
+                return "\n".join(saida)
+            else:
+                saida.append(f"❌ Erro ao executar: {result['error']}")
+                saida.append(f"⏱️ Tempo até erro: {exec_time:.2f}s")
+                robo_logger.log_execucao_robo(
+                    os.path.basename(script_path), 
+                    "erro_execucao", 
+                    f"Erro: {result['error']}, Tempo: {exec_time:.2f}s"
+                )
+                return "\n".join(saida)
+        else:
+            saida.append("❌ Não foi possível estabelecer conexão SSH")
+            robo_logger.log_execucao_robo(
+                os.path.basename(script_path), 
+                "falha_conexao", 
+                "Falha na conexão SSH"
+            )
+            return "\n".join(saida)
     except Exception as e:
         saida.append(f"❌ Erro SSH: {e}")
-    
+        robo_logger.log_execucao_robo(
+            os.path.basename(script_path), 
+            "erro_ssh", 
+            f"Erro SSH: {str(e)}"
+        )
+        return "\n".join(saida)
     # Método 3: Salvar script localmente para transferência manual
     saida.append("\n=== Salvando script para transferência manual ===")
     saida.append(f"📁 Script salvo em: {os.path.abspath(script_path)}")
     saida.append("💡 Copie o script para o robô manualmente e execute:")
     saida.append(f"   python3 {os.path.basename(script_path)}")
-    
+    robo_logger.log_execucao_robo(
+        os.path.basename(script_path), 
+        "manual_required", 
+        "Execução manual necessária"
+    )
     return "\n".join(saida)
 
 @app.route('/executar/<nome>')
@@ -663,6 +745,9 @@ def executar_robo(nome):
         
         # Tentar enviar para o robô via USB/Serial
         saida = enviar_para_robo(script_path, config)
+        print("\n===== LOG DETALHADO DA EXECUÇÃO =====\n")
+        print(saida)
+        print("\n===== FIM DO LOG =====\n")
         sucesso = "ERRO" not in saida.upper()
         
         flash(f'Script enviado para o robô! {saida}', 'success' if sucesso else 'warning')
@@ -674,8 +759,45 @@ def executar_robo(nome):
     
     return render_template('execucao_robo.html', nome=nome, saida=saida, sucesso=sucesso, config=config)
 
+@app.route('/status_raspberry')
+def status_raspberry():
+    """Retorna status da conexão com o Raspberry Pi"""
+    status = raspberry_conn.get_status()
+    wifi_info = None
+    
+    if status['connected']:
+        try:
+            wifi_info = raspberry_conn.get_wifi_info()
+        except:
+            wifi_info = "Erro ao obter informações WiFi"
+    
+    return {
+        'connection': status,
+        'wifi_info': wifi_info,
+        'logs_recentes': robo_logger.get_logs_recentes(limit=10)
+    }
+
+@app.route('/logs_sistema')
+def logs_sistema():
+    """Retorna logs do sistema"""
+    tipo = request.args.get('tipo', 'all')
+    limit = int(request.args.get('limit', 50))
+    
+    logs = robo_logger.get_logs_recentes(tipo=tipo, limit=limit)
+    return {'logs': logs}
+
+
+
 if __name__ == '__main__':
     print("🚀 Iniciando servidor Flask...")
     print("📡 Interface web disponível em: http://localhost:5000")
     print("🤖 Configurado para conectar no Raspberry Pi: 192.168.68.107")
+    
+    # Iniciar conexão persistente com Raspberry Pi
+    print("🔗 Iniciando conexão persistente com Raspberry Pi...")
+    if raspberry_conn.connect():
+        print("✅ Conexão persistente estabelecida!")
+    else:
+        print("⚠️ Conexão persistente não estabelecida - será tentada automaticamente")
+    
     app.run(host='0.0.0.0', port=5000, debug=False)  # Desabilitar debug para evitar reinicializações 

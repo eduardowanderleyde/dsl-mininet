@@ -1,0 +1,88 @@
+2025-07-03 23:55:49,928 - robo_system - INFO - SSH: 192.168.68.107 - tentando - Estabelecendo conexão SSH...
+2025-07-03 23:55:52,000 - robo_system - INFO - SSH: 192.168.68.107 - conectado - Conexão SSH estabelecida com sucesso
+2025-07-03 23:56:24,919 - robo_system - INFO - ROBÔ: robo_script_cenario_teste_movimento_continuo.py - iniciando - Sessão fc0a9777 - Enviando script para robô
+2025-07-03 23:56:25,232 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_teste_movimento_continuo.py -> /home/eduardowanderley/robo_script_cenario_teste_movimento_continuo.py
+2025-07-03 23:56:25,313 - robo_system - INFO - ROBÔ: robo_script_cenario_teste_movimento_continuo.py - executando - Script iniciado no Raspberry Pi - PID: 
+2025-07-03 23:56:42,861 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - iniciando - Sessão e1b413c3 - Enviando script para robô
+2025-07-03 23:56:43,073 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py
+2025-07-03 23:56:43,154 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - executando - Script iniciado no Raspberry Pi - PID: 
+2025-07-03 23:59:08,685 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_otimizado.py - iniciando - Sessão e4ea9000 - Enviando script para robô
+2025-07-03 23:59:08,897 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_quarto_otimizado.py -> /home/eduardowanderley/robo_script_cenario_quarto_otimizado.py
+2025-07-03 23:59:08,978 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_otimizado.py - executando - Script iniciado no Raspberry Pi - PID: 
+2025-07-03 23:59:36,630 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - iniciando - Sessão 5918495c - Enviando script para robô
+2025-07-03 23:59:36,855 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py
+2025-07-03 23:59:36,944 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - executando - Script iniciado no Raspberry Pi - PID: 
+2025-07-04 00:02:18,378 - robo_system - INFO - SSH: 192.168.68.107 - tentando - Estabelecendo conexão SSH...
+2025-07-04 00:02:20,733 - robo_system - INFO - SSH: 192.168.68.107 - conectado - Conexão SSH estabelecida com sucesso
+2025-07-04 00:02:24,848 - robo_system - INFO - ROBÔ: robo_script_cenario_teste_movimento_continuo.py - iniciando - Sessão f1db3d5e - Enviando script para robô
+2025-07-04 00:02:25,390 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_teste_movimento_continuo.py -> /home/eduardowanderley/robo_script_cenario_teste_movimento_continuo.py
+2025-07-04 00:02:26,034 - robo_system - INFO - ROBÔ: robo_script_cenario_teste_movimento_continuo.py - executando - Script iniciado - PID: 3487, Log: robo_output_f1db3d5e.log, Tempo: 0.12s
+2025-07-04 00:02:32,293 - robo_system - INFO - ROBÔ: robo_script_cenario_teste_movimento_continuo.py - iniciando - Sessão 511e6905 - Enviando script para robô
+2025-07-04 00:02:32,630 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_teste_movimento_continuo.py -> /home/eduardowanderley/robo_script_cenario_teste_movimento_continuo.py
+2025-07-04 00:02:33,029 - robo_system - INFO - ROBÔ: robo_script_cenario_teste_movimento_continuo.py - executando - Script iniciado - PID: 3506, Log: robo_output_511e6905.log, Tempo: 0.13s
+2025-07-04 00:03:24,995 - robo_system - INFO - ROBÔ: robo_script_cenario_teste_movimento_continuo.py - iniciando - Sessão f4546416 - Enviando script para robô
+2025-07-04 00:03:25,342 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_teste_movimento_continuo.py -> /home/eduardowanderley/robo_script_cenario_teste_movimento_continuo.py
+2025-07-04 00:03:25,732 - robo_system - INFO - ROBÔ: robo_script_cenario_teste_movimento_continuo.py - executando - Script iniciado - PID: 3575, Log: robo_output_f4546416.log, Tempo: 0.12s
+2025-07-04 00:04:35,523 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - iniciando - Sessão 6c67fc0b - Enviando script para robô
+2025-07-04 00:04:35,848 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py
+2025-07-04 00:04:36,235 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - executando - Script iniciado - PID: 3667, Log: robo_output_6c67fc0b.log, Tempo: 0.12s
+2025-07-04 00:04:40,845 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - iniciando - Sessão 5adc2ee1 - Enviando script para robô
+2025-07-04 00:04:41,254 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py
+2025-07-04 00:04:41,645 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - executando - Script iniciado - PID: 3681, Log: robo_output_5adc2ee1.log, Tempo: 0.13s
+2025-07-04 00:04:57,861 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - iniciando - Sessão e9442722 - Enviando script para robô
+2025-07-04 00:04:58,184 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py
+2025-07-04 00:04:58,557 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - executando - Script iniciado - PID: 3713, Log: robo_output_e9442722.log, Tempo: 0.11s
+2025-07-04 00:05:03,711 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - iniciando - Sessão c13d05a0 - Enviando script para robô
+2025-07-04 00:05:04,076 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py
+2025-07-04 00:05:04,478 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - executando - Script iniciado - PID: 3730, Log: robo_output_c13d05a0.log, Tempo: 0.13s
+2025-07-04 00:05:08,440 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - iniciando - Sessão 913a14f4 - Enviando script para robô
+2025-07-04 00:05:08,753 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py
+2025-07-04 00:05:09,158 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - executando - Script iniciado - PID: 3751, Log: robo_output_913a14f4.log, Tempo: 0.13s
+2025-07-04 00:05:16,620 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_otimizado.py - iniciando - Sessão f9b62e4c - Enviando script para robô
+2025-07-04 00:05:16,945 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_quarto_otimizado.py -> /home/eduardowanderley/robo_script_cenario_quarto_otimizado.py
+2025-07-04 00:05:17,339 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_otimizado.py - executando - Script iniciado - PID: 3769, Log: robo_output_f9b62e4c.log, Tempo: 0.12s
+2025-07-04 00:06:26,966 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_otimizado.py - iniciando - Sessão ce858097 - Enviando script para robô
+2025-07-04 00:06:27,344 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_quarto_otimizado.py -> /home/eduardowanderley/robo_script_cenario_quarto_otimizado.py
+2025-07-04 00:06:27,726 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_otimizado.py - executando - Script iniciado - PID: 3859, Log: robo_output_ce858097.log, Tempo: 0.12s
+2025-07-04 00:07:25,491 - robo_system - INFO - SSH: 192.168.68.107 - tentando - Estabelecendo conexão SSH...
+2025-07-04 00:07:27,214 - robo_system - INFO - SSH: 192.168.68.107 - conectado - Conexão SSH estabelecida com sucesso
+2025-07-04 00:07:54,112 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - iniciando - Sessão b5ceb6b7 - Enviando script para robô
+2025-07-04 00:07:54,488 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py
+2025-07-04 00:07:55,075 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - executando - Script iniciado - PID: 3969, Log: robo_output_b5ceb6b7.log, Tempo: 0.15s
+2025-07-04 00:10:14,449 - robo_system - INFO - SSH: 192.168.68.107 - tentando - Estabelecendo conexão SSH...
+2025-07-04 00:10:15,551 - robo_system - INFO - SSH: 192.168.68.107 - conectado - Conexão SSH estabelecida com sucesso
+2025-07-04 00:10:17,220 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - iniciando - Sessão 665edb8f - Enviando script para robô
+2025-07-04 00:10:17,561 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py
+2025-07-04 00:10:17,954 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - executando - Script iniciado - PID: 4145, Log: robo_output_665edb8f.log, Tempo: 0.13s
+2025-07-04 00:12:55,854 - robo_system - INFO - SSH: 192.168.68.107 - tentando - Estabelecendo conexão SSH...
+2025-07-04 00:12:58,269 - robo_system - INFO - SSH: 192.168.68.107 - conectado - Conexão SSH estabelecida com sucesso
+2025-07-04 00:13:03,812 - robo_system - INFO - ROBÔ: robo_script_cenario_teste_movimento_continuo.py - iniciando - Sessão b8454126 - Enviando script para robô
+2025-07-04 00:13:04,161 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_teste_movimento_continuo.py -> /home/eduardowanderley/robo_script_cenario_teste_movimento_continuo.py
+2025-07-04 00:13:04,703 - robo_system - INFO - ROBÔ: robo_script_cenario_teste_movimento_continuo.py - executando - Script iniciado - PID: 4331, Log: robo_output_b8454126.log, Tempo: 0.14s
+2025-07-04 00:13:24,065 - robo_system - INFO - ROBÔ: robo_script_cenario_teste_movimento_continuo.py - iniciando - Sessão 73227159 - Enviando script para robô
+2025-07-04 00:13:24,425 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_teste_movimento_continuo.py -> /home/eduardowanderley/robo_script_cenario_teste_movimento_continuo.py
+2025-07-04 00:13:24,892 - robo_system - INFO - ROBÔ: robo_script_cenario_teste_movimento_continuo.py - executando - Script iniciado - PID: 4363, Log: robo_output_73227159.log, Tempo: 0.13s
+2025-07-04 00:13:40,906 - robo_system - INFO - ROBÔ: robo_script_cenario_teste_movimento_continuo.py - iniciando - Sessão 939cf6b9 - Enviando script para robô
+2025-07-04 00:13:41,241 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_teste_movimento_continuo.py -> /home/eduardowanderley/robo_script_cenario_teste_movimento_continuo.py
+2025-07-04 00:13:41,644 - robo_system - INFO - ROBÔ: robo_script_cenario_teste_movimento_continuo.py - executando - Script iniciado - PID: 4390, Log: robo_output_939cf6b9.log, Tempo: 0.13s
+2025-07-04 00:13:56,080 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - iniciando - Sessão a2a2a240 - Enviando script para robô
+2025-07-04 00:13:56,418 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py
+2025-07-04 00:13:56,831 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - executando - Script iniciado - PID: 4426, Log: robo_output_a2a2a240.log, Tempo: 0.12s
+2025-07-04 00:14:10,730 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - iniciando - Sessão 41960d2c - Enviando script para robô
+2025-07-04 00:14:11,055 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py
+2025-07-04 00:14:11,440 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - executando - Script iniciado - PID: 4453, Log: robo_output_41960d2c.log, Tempo: 0.13s
+2025-07-04 00:20:02,640 - robo_system - INFO - SSH: 192.168.68.107 - tentando - Estabelecendo conexão SSH...
+2025-07-04 00:20:04,023 - robo_system - INFO - SSH: 192.168.68.107 - conectado - Conexão SSH estabelecida com sucesso
+2025-07-04 00:20:09,620 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - iniciando - Sessão 73c14c29 - Enviando script para robô
+2025-07-04 00:20:10,051 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py
+2025-07-04 00:20:10,696 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - executando - Script iniciado - PID: 4884, Log: robo_output_73c14c29.log, Tempo: 0.12s
+2025-07-04 00:26:33,025 - robo_system - INFO - SSH: 192.168.68.107 - tentando - Estabelecendo conexão SSH...
+2025-07-04 00:26:34,557 - robo_system - INFO - SSH: 192.168.68.107 - conectado - Conexão SSH estabelecida com sucesso
+2025-07-04 00:26:45,115 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - iniciando - Sessão e3cf94c2 - Enviando script para robô
+2025-07-04 00:26:45,661 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py
+2025-07-04 00:26:46,116 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - executando - Script iniciado - PID: 5321, Log: robo_output_e3cf94c2.log, Tempo: 0.13s
+2025-07-04 00:34:36,357 - robo_system - INFO - SSH: 192.168.68.107 - tentando - Estabelecendo conexão SSH...
+2025-07-04 00:34:37,391 - robo_system - INFO - SSH: 192.168.68.107 - conectado - Conexão SSH estabelecida com sucesso
+2025-07-04 00:34:53,992 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - iniciando - Sessão d9f63d21 - Enviando script para robô
+2025-07-04 00:34:54,412 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py
+2025-07-04 00:34:54,807 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - executando - Script iniciado - PID: 5843, Log: robo_output_d9f63d21.log, Tempo: 0.13s

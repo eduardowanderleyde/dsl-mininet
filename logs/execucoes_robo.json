@@ -1,0 +1,338 @@
+[
+  {
+    "timestamp": "2025-07-03 23:56:24",
+    "cenario": "robo_script_cenario_teste_movimento_continuo.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o fc0a9777 - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-03 23:56:25",
+    "cenario": "robo_script_cenario_teste_movimento_continuo.py",
+    "status": "executando",
+    "detalhes": "Script iniciado no Raspberry Pi - PID: ",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-03 23:56:42",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o e1b413c3 - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-03 23:56:43",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "executando",
+    "detalhes": "Script iniciado no Raspberry Pi - PID: ",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-03 23:59:08",
+    "cenario": "robo_script_cenario_quarto_otimizado.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o e4ea9000 - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-03 23:59:08",
+    "cenario": "robo_script_cenario_quarto_otimizado.py",
+    "status": "executando",
+    "detalhes": "Script iniciado no Raspberry Pi - PID: ",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-03 23:59:36",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o 5918495c - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-03 23:59:36",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "executando",
+    "detalhes": "Script iniciado no Raspberry Pi - PID: ",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:02:24",
+    "cenario": "robo_script_cenario_teste_movimento_continuo.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o f1db3d5e - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:02:26",
+    "cenario": "robo_script_cenario_teste_movimento_continuo.py",
+    "status": "executando",
+    "detalhes": "Script iniciado - PID: 3487, Log: robo_output_f1db3d5e.log, Tempo: 0.12s",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:02:32",
+    "cenario": "robo_script_cenario_teste_movimento_continuo.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o 511e6905 - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:02:33",
+    "cenario": "robo_script_cenario_teste_movimento_continuo.py",
+    "status": "executando",
+    "detalhes": "Script iniciado - PID: 3506, Log: robo_output_511e6905.log, Tempo: 0.13s",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:03:24",
+    "cenario": "robo_script_cenario_teste_movimento_continuo.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o f4546416 - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:03:25",
+    "cenario": "robo_script_cenario_teste_movimento_continuo.py",
+    "status": "executando",
+    "detalhes": "Script iniciado - PID: 3575, Log: robo_output_f4546416.log, Tempo: 0.12s",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:04:35",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o 6c67fc0b - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:04:36",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "executando",
+    "detalhes": "Script iniciado - PID: 3667, Log: robo_output_6c67fc0b.log, Tempo: 0.12s",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:04:40",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o 5adc2ee1 - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:04:41",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "executando",
+    "detalhes": "Script iniciado - PID: 3681, Log: robo_output_5adc2ee1.log, Tempo: 0.13s",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:04:57",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o e9442722 - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:04:58",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "executando",
+    "detalhes": "Script iniciado - PID: 3713, Log: robo_output_e9442722.log, Tempo: 0.11s",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:05:03",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o c13d05a0 - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:05:04",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "executando",
+    "detalhes": "Script iniciado - PID: 3730, Log: robo_output_c13d05a0.log, Tempo: 0.13s",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:05:08",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o 913a14f4 - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:05:09",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "executando",
+    "detalhes": "Script iniciado - PID: 3751, Log: robo_output_913a14f4.log, Tempo: 0.13s",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:05:16",
+    "cenario": "robo_script_cenario_quarto_otimizado.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o f9b62e4c - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:05:17",
+    "cenario": "robo_script_cenario_quarto_otimizado.py",
+    "status": "executando",
+    "detalhes": "Script iniciado - PID: 3769, Log: robo_output_f9b62e4c.log, Tempo: 0.12s",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:06:26",
+    "cenario": "robo_script_cenario_quarto_otimizado.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o ce858097 - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:06:27",
+    "cenario": "robo_script_cenario_quarto_otimizado.py",
+    "status": "executando",
+    "detalhes": "Script iniciado - PID: 3859, Log: robo_output_ce858097.log, Tempo: 0.12s",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:07:54",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o b5ceb6b7 - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:07:55",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "executando",
+    "detalhes": "Script iniciado - PID: 3969, Log: robo_output_b5ceb6b7.log, Tempo: 0.15s",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:10:17",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o 665edb8f - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:10:17",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "executando",
+    "detalhes": "Script iniciado - PID: 4145, Log: robo_output_665edb8f.log, Tempo: 0.13s",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:13:03",
+    "cenario": "robo_script_cenario_teste_movimento_continuo.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o b8454126 - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:13:04",
+    "cenario": "robo_script_cenario_teste_movimento_continuo.py",
+    "status": "executando",
+    "detalhes": "Script iniciado - PID: 4331, Log: robo_output_b8454126.log, Tempo: 0.14s",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:13:24",
+    "cenario": "robo_script_cenario_teste_movimento_continuo.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o 73227159 - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:13:24",
+    "cenario": "robo_script_cenario_teste_movimento_continuo.py",
+    "status": "executando",
+    "detalhes": "Script iniciado - PID: 4363, Log: robo_output_73227159.log, Tempo: 0.13s",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:13:40",
+    "cenario": "robo_script_cenario_teste_movimento_continuo.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o 939cf6b9 - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:13:41",
+    "cenario": "robo_script_cenario_teste_movimento_continuo.py",
+    "status": "executando",
+    "detalhes": "Script iniciado - PID: 4390, Log: robo_output_939cf6b9.log, Tempo: 0.13s",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:13:56",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o a2a2a240 - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:13:56",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "executando",
+    "detalhes": "Script iniciado - PID: 4426, Log: robo_output_a2a2a240.log, Tempo: 0.12s",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:14:10",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o 41960d2c - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:14:11",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "executando",
+    "detalhes": "Script iniciado - PID: 4453, Log: robo_output_41960d2c.log, Tempo: 0.13s",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:20:09",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o 73c14c29 - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:20:10",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "executando",
+    "detalhes": "Script iniciado - PID: 4884, Log: robo_output_73c14c29.log, Tempo: 0.12s",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:26:45",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o e3cf94c2 - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:26:46",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "executando",
+    "detalhes": "Script iniciado - PID: 5321, Log: robo_output_e3cf94c2.log, Tempo: 0.13s",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:34:53",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o d9f63d21 - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:34:54",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "executando",
+    "detalhes": "Script iniciado - PID: 5843, Log: robo_output_d9f63d21.log, Tempo: 0.13s",
+    "tipo": "execucao_robo"
+  }
+]
