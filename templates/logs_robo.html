@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Logs do Robô{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-robot"></i> Logs do Robô Baixados
+                    </h4>
+                </div>
+                <div class="card-body">
+                    {% if logs %}
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Arquivo</th>
+                                        <th>Tamanho</th>
+                                        <th>Data de Modificação</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for log in logs %}
+                                    <tr>
+                                        <td>
+                                            <i class="fas fa-file-alt text-info"></i>
+                                            <strong>{{ log.nome }}</strong>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-secondary">
+                                                {{ "%.1f"|format(log.tamanho / 1024) }} KB
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <small class="text-muted">{{ log.data_modificacao }}</small>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a href="{{ url_for('visualizar_log', nome_arquivo=log.nome) }}" 
+                                                   class="btn btn-sm btn-outline-primary">
+                                                    <i class="fas fa-eye"></i> Visualizar
+                                                </a>
+                                                <a href="{{ url_for('baixar_log_antigo', session_id=log.nome.split('_')[2]) }}?cenario={{ log.nome.split('_')[3] }}" 
+                                                   class="btn btn-sm btn-outline-success">
+                                                    <i class="fas fa-download"></i> Re-baixar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-folder-open fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">Nenhum log encontrado</h5>
+                            <p class="text-muted">
+                                Os logs do robô aparecerão aqui após executar cenários no Raspberry Pi.
+                            </p>
+                            <a href="{{ url_for('index') }}" class="btn btn-primary">
+                                <i class="fas fa-play"></i> Executar Cenário
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Auto-refresh a cada 30 segundos para ver novos logs
+setTimeout(function() {
+    location.reload();
+}, 30000);
+</script>
+{% endblock %} 

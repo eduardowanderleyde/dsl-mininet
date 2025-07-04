@@ -86,3 +86,29 @@
 2025-07-04 00:34:53,992 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - iniciando - Sessão d9f63d21 - Enviando script para robô
 2025-07-04 00:34:54,412 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py
 2025-07-04 00:34:54,807 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - executando - Script iniciado - PID: 5843, Log: robo_output_d9f63d21.log, Tempo: 0.13s
+2025-07-04 00:41:06,490 - robo_system - INFO - SSH: 192.168.68.107 - tentando - Estabelecendo conexão SSH...
+2025-07-04 00:41:07,562 - robo_system - INFO - SSH: 192.168.68.107 - conectado - Conexão SSH estabelecida com sucesso
+2025-07-04 00:41:11,342 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - iniciando - Sessão 2cde1d78 - Enviando script para robô
+2025-07-04 00:41:11,710 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py
+2025-07-04 00:41:12,089 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - executando - Script iniciado - PID: 6264, Log: robo_output_2cde1d78.log, Tempo: 0.12s
+2025-07-04 00:41:18,300 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - iniciando - Sessão 8ee2faf1 - Enviando script para robô
+2025-07-04 00:41:18,677 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py
+2025-07-04 00:41:19,100 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - executando - Script iniciado - PID: 6284, Log: robo_output_8ee2faf1.log, Tempo: 0.13s
+2025-07-04 00:45:23,182 - robo_system - INFO - SSH: 192.168.68.107 - tentando - Estabelecendo conexão SSH...
+2025-07-04 00:45:25,611 - robo_system - INFO - SSH: 192.168.68.107 - conectado - Conexão SSH estabelecida com sucesso
+2025-07-04 00:45:30,373 - robo_system - INFO - ROBÔ: robo_script_cenario_handover_automatico.py - iniciando - Sessão b2542cb7 - Enviando script para robô
+2025-07-04 00:45:30,407 - robo_system - INFO - ROBÔ: robo_script_cenario_handover_automatico.py - erro_ssh - Erro SSH: name 'RaspberryConnection' is not defined
+2025-07-04 00:45:38,643 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - iniciando - Sessão 283c197b - Enviando script para robô
+2025-07-04 00:45:38,653 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - erro_ssh - Erro SSH: name 'RaspberryConnection' is not defined
+2025-07-04 00:45:49,016 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_otimizado.py - iniciando - Sessão 0edd95e6 - Enviando script para robô
+2025-07-04 00:45:49,018 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_otimizado.py - erro_ssh - Erro SSH: name 'RaspberryConnection' is not defined
+2025-07-04 00:47:58,413 - robo_system - INFO - SSH: 192.168.68.107 - tentando - Estabelecendo conexão SSH...
+2025-07-04 00:47:59,470 - robo_system - INFO - SSH: 192.168.68.107 - conectado - Conexão SSH estabelecida com sucesso
+2025-07-04 00:48:03,610 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - iniciando - Sessão b6b11bbf - Enviando script para robô
+2025-07-04 00:48:03,633 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - erro_ssh - Erro SSH: name 'RaspberryConnection' is not defined
+2025-07-04 00:53:28,818 - robo_system - INFO - SSH: 192.168.68.107 - tentando - Estabelecendo conexão SSH...
+2025-07-04 00:53:29,821 - robo_system - INFO - SSH: 192.168.68.107 - conectado - Conexão SSH estabelecida com sucesso
+2025-07-04 00:53:35,198 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - iniciando - Sessão b0585b0c - Enviando script para robô
+2025-07-04 00:53:35,756 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py
+2025-07-04 00:53:35,843 - robo_system - INFO - SSH: 192.168.68.107 - upload_sucesso - Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py
+2025-07-04 00:53:43,020 - robo_system - INFO - ROBÔ: robo_script_cenario_quarto_final.py - executando - Script iniciado - PID: 7178, Log: robo_output_b0585b0c.log, Tempo: 0.14s

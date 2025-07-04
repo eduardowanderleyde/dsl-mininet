@@ -334,5 +334,103 @@
     "status": "executando",
     "detalhes": "Script iniciado - PID: 5843, Log: robo_output_d9f63d21.log, Tempo: 0.13s",
     "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:41:11",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o 2cde1d78 - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:41:12",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "executando",
+    "detalhes": "Script iniciado - PID: 6264, Log: robo_output_2cde1d78.log, Tempo: 0.12s",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:41:18",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o 8ee2faf1 - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:41:19",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "executando",
+    "detalhes": "Script iniciado - PID: 6284, Log: robo_output_8ee2faf1.log, Tempo: 0.13s",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:45:30",
+    "cenario": "robo_script_cenario_handover_automatico.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o b2542cb7 - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:45:30",
+    "cenario": "robo_script_cenario_handover_automatico.py",
+    "status": "erro_ssh",
+    "detalhes": "Erro SSH: name 'RaspberryConnection' is not defined",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:45:38",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o 283c197b - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:45:38",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "erro_ssh",
+    "detalhes": "Erro SSH: name 'RaspberryConnection' is not defined",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:45:49",
+    "cenario": "robo_script_cenario_quarto_otimizado.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o 0edd95e6 - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:45:49",
+    "cenario": "robo_script_cenario_quarto_otimizado.py",
+    "status": "erro_ssh",
+    "detalhes": "Erro SSH: name 'RaspberryConnection' is not defined",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:48:03",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o b6b11bbf - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:48:03",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "erro_ssh",
+    "detalhes": "Erro SSH: name 'RaspberryConnection' is not defined",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:53:35",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "iniciando",
+    "detalhes": "Sess\u00e3o b0585b0c - Enviando script para rob\u00f4",
+    "tipo": "execucao_robo"
+  },
+  {
+    "timestamp": "2025-07-04 00:53:43",
+    "cenario": "robo_script_cenario_quarto_final.py",
+    "status": "executando",
+    "detalhes": "Script iniciado - PID: 7178, Log: robo_output_b0585b0c.log, Tempo: 0.14s",
+    "tipo": "execucao_robo"
   }
 ]

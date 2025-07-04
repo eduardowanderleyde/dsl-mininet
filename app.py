@@ -6,7 +6,7 @@ from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory, flash
 import paramiko
 from logger_config import robo_logger
-from raspberry_connection import raspberry_conn
+from raspberry_connection import raspberry_conn, RaspberryConnection
 
 app = Flask(__name__)
 app.secret_key = 'segredo-super-simples'
@@ -534,11 +534,41 @@ if __name__ == "__main__":
     
     return script
 
+def baixar_log_robo(session_id, nome_cenario):
+    """Baixa o log do robô para a máquina local"""
+    try:
+        # Criar diretório de logs se não existir
+        logs_dir = "logs/robo_logs"
+        os.makedirs(logs_dir, exist_ok=True)
+        
+        # Nome do arquivo local
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        local_log_file = f"{logs_dir}/robo_output_{session_id}_{nome_cenario}_{timestamp}.log"
+        
+        # Baixar via SCP
+        remote_log_file = f"robo_output_{session_id}.log"
+        scp_command = f"scp eduardowanderley@192.168.68.107:/home/eduardowanderley/{remote_log_file} {local_log_file}"
+        
+        print(f"📥 Baixando log do robô: {remote_log_file} -> {local_log_file}")
+        result = subprocess.run(scp_command, shell=True, capture_output=True, text=True)
+        
+        if result.returncode == 0:
+            print(f"✅ Log baixado com sucesso: {local_log_file}")
+            return local_log_file
+        else:
+            print(f"❌ Erro ao baixar log: {result.stderr}")
+            return None
+            
+    except Exception as e:
+        print(f"❌ Exceção ao baixar log: {e}")
+        return None
+
 def enviar_para_robo(script_path, config):
     """Envia script para o robô usando conexão persistente"""
     
     saida = []
     session_id = str(uuid.uuid4())[:8]
+    nome_cenario = os.path.basename(script_path).replace('.py', '')
     
     # Log do início da execução
     robo_logger.log_execucao_robo(
@@ -583,34 +613,59 @@ def enviar_para_robo(script_path, config):
     
     # Método 2: Usar conexão persistente SSH
     saida.append("\n=== Usando conexão persistente SSH ===")
-    saida.append(f"🔍 Status da conexão: {'✅ Conectado' if raspberry_conn.is_connected() else '❌ Desconectado'}")
+    
     try:
-        saida.append("🔗 Verificando conexão SSH...")
-        if raspberry_conn.ensure_connection():
-            saida.append("✅ Conexão SSH estabelecida!")
-            # Verificar espaço em disco
-            saida.append("💾 Verificando espaço em disco...")
-            try:
-                disk_result = raspberry_conn.execute_command("df -h /home")
-                if disk_result['success']:
-                    saida.append(f"📊 Espaço disponível: {disk_result['output'].strip()}")
-                else:
-                    saida.append(f"⚠️ Erro ao verificar disco: {disk_result['error']}")
-            except Exception as e:
-                saida.append(f"❌ Exceção ao verificar disco: {e}")
-            # Enviar script
-            remote_path = f'/home/{raspberry_conn.username}/{os.path.basename(script_path)}'
-            saida.append(f"📤 Enviando script para: {remote_path}")
-            saida.append(f"📁 Tamanho do arquivo: {os.path.getsize(script_path)} bytes")
-            try:
-                saida.append("🔄 Iniciando upload...")
-                start_upload = datetime.now()
-                raspberry_conn.upload_file(script_path, remote_path)
-                upload_time = (datetime.now() - start_upload).total_seconds()
-                saida.append(f"✅ Script enviado com sucesso! (Tempo: {upload_time:.2f}s)")
-            except Exception as e:
-                saida.append(f"❌ Erro no upload: {e}")
+        # Verificar status da conexão
+        if raspberry_conn.is_connected():
+            saida.append("🔍 Status da conexão: ✅ Conectado")
+        else:
+            saida.append("🔍 Status da conexão: ❌ Não conectado")
+            saida.append("🔗 Tentando estabelecer conexão...")
+            if not raspberry_conn.connect():
+                saida.append("❌ Falha ao estabelecer conexão SSH")
                 return "\n".join(saida)
+        
+        # Verificar conexão SSH
+        saida.append("🔗 Verificando conexão SSH...")
+        test_result = raspberry_conn.execute_command("echo 'SSH OK'")
+        if test_result['success']:
+            saida.append("✅ Conexão SSH estabelecida!")
+        else:
+            saida.append("❌ Falha na conexão SSH")
+            return "\n".join(saida)
+        
+        # Verificar espaço em disco
+        saida.append("💾 Verificando espaço em disco...")
+        df_result = raspberry_conn.execute_command("df -h /")
+        if df_result['success']:
+            saida.append(f"📊 Espaço disponível: {df_result['output'].strip()}")
+        else:
+            saida.append("⚠️ Não foi possível verificar espaço em disco")
+        
+        # Enviar script
+        remote_path = f'/home/eduardowanderley/{os.path.basename(script_path)}'
+        saida.append(f"📤 Enviando script para: {remote_path}")
+        
+        # Verificar tamanho do arquivo
+        file_size = os.path.getsize(script_path)
+        saida.append(f"📁 Tamanho do arquivo: {file_size} bytes")
+        
+        saida.append("🔄 Iniciando upload...")
+        start_upload = datetime.now()
+        
+        upload_success = raspberry_conn.upload_file(script_path, remote_path)
+        upload_time = (datetime.now() - start_upload).total_seconds()
+        
+        if upload_success:
+            saida.append(f"✅ Script enviado com sucesso! (Tempo: {upload_time:.2f}s)")
+            
+            # Log do upload
+            robo_logger.log_conexao_ssh(
+                '192.168.68.107', 
+                'upload_sucesso', 
+                f'Arquivo enviado: {os.path.basename(script_path)} -> {remote_path}'
+            )
+            
             # Verificar se arquivo foi criado
             saida.append("🔍 Verificando arquivo no Raspberry Pi...")
             try:
@@ -621,6 +676,7 @@ def enviar_para_robo(script_path, config):
                     saida.append(f"⚠️ Erro ao verificar arquivo: {check_result['error']}")
             except Exception as e:
                 saida.append(f"❌ Exceção ao verificar arquivo: {e}")
+            
             # Executar no robô
             comando_execucao = f'python3 {remote_path}'
             saida.append(f"🚀 Executando: {comando_execucao}")
@@ -637,6 +693,7 @@ def enviar_para_robo(script_path, config):
             except Exception as e:
                 saida.append(f"❌ Erro ao executar comando: {e}")
                 return "\n".join(saida)
+            
             if result['success']:
                 saida.append("✅ Comando executado com sucesso!")
                 saida.append(f"📄 Saída do comando: '{result['output'].strip()}'")
@@ -656,6 +713,18 @@ def enviar_para_robo(script_path, config):
                             saida.append("⚠️ Processo não encontrado - pode ter terminado rapidamente")
                     except Exception as e:
                         saida.append(f"❌ Erro ao verificar processo: {e}")
+                    
+                    # Baixar log para máquina local
+                    saida.append("\n=== Baixando log para máquina local ===")
+                    local_log_path = baixar_log_robo(session_id, nome_cenario)
+                    if local_log_path:
+                        saida.append(f"📥 Log salvo localmente: {local_log_path}")
+                        saida.append("💡 Você pode acessar o log em tempo real com:")
+                        saida.append(f"   tail -f {local_log_path}")
+                    else:
+                        saida.append("⚠️ Não foi possível baixar o log automaticamente")
+                        saida.append("💡 Baixe manualmente com:")
+                        saida.append(f"   scp eduardowanderley@192.168.68.107:/home/eduardowanderley/robo_output_{session_id}.log .")
                 else:
                     saida.append(f"⚠️ PID inválido retornado: '{pid}'")
                     saida.append("🔍 Verificando se processo foi iniciado...")
@@ -665,6 +734,7 @@ def enviar_para_robo(script_path, config):
                             saida.append(f"📊 Processos Python ativos: {ps_result['output'].strip()}")
                     except Exception as e:
                         saida.append(f"❌ Erro ao verificar processos: {e}")
+                
                 robo_logger.log_execucao_robo(
                     os.path.basename(script_path), 
                     "executando", 
@@ -696,6 +766,7 @@ def enviar_para_robo(script_path, config):
             f"Erro SSH: {str(e)}"
         )
         return "\n".join(saida)
+    
     # Método 3: Salvar script localmente para transferência manual
     saida.append("\n=== Salvando script para transferência manual ===")
     saida.append(f"📁 Script salvo em: {os.path.abspath(script_path)}")
@@ -786,7 +857,75 @@ def logs_sistema():
     logs = robo_logger.get_logs_recentes(tipo=tipo, limit=limit)
     return {'logs': logs}
 
+@app.route('/logs_robo')
+def logs_robo():
+    """Página para visualizar logs do robô baixados"""
+    logs_dir = "logs/robo_logs"
+    logs = []
+    
+    if os.path.exists(logs_dir):
+        for arquivo in os.listdir(logs_dir):
+            if arquivo.endswith('.log'):
+                caminho = os.path.join(logs_dir, arquivo)
+                stat = os.stat(caminho)
+                logs.append({
+                    'nome': arquivo,
+                    'caminho': caminho,
+                    'tamanho': stat.st_size,
+                    'data_modificacao': datetime.fromtimestamp(stat.st_mtime).strftime('%Y-%m-%d %H:%M:%S')
+                })
+    
+    # Ordenar por data de modificação (mais recente primeiro)
+    logs.sort(key=lambda x: x['data_modificacao'], reverse=True)
+    
+    return render_template('logs_robo.html', logs=logs)
 
+@app.route('/visualizar_log/<nome_arquivo>')
+def visualizar_log(nome_arquivo):
+    """Visualiza o conteúdo de um log específico"""
+    logs_dir = "logs/robo_logs"
+    caminho = os.path.join(logs_dir, nome_arquivo)
+    
+    if not os.path.exists(caminho):
+        flash('Arquivo de log não encontrado!', 'danger')
+        return redirect(url_for('logs_robo'))
+    
+    try:
+        with open(caminho, 'r', encoding='utf-8') as f:
+            conteudo = f.read()
+        
+        # Estatísticas do log
+        linhas = conteudo.split('\n')
+        tamanho = os.path.getsize(caminho)
+        stat = os.stat(caminho)
+        data_modificacao = datetime.fromtimestamp(stat.st_mtime).strftime('%Y-%m-%d %H:%M:%S')
+        
+        return render_template('visualizar_log.html', 
+                             nome_arquivo=nome_arquivo,
+                             conteudo=conteudo,
+                             linhas=len(linhas),
+                             tamanho=tamanho,
+                             data_modificacao=data_modificacao)
+    except Exception as e:
+        flash(f'Erro ao ler arquivo: {e}', 'danger')
+        return redirect(url_for('logs_robo'))
+
+@app.route('/baixar_log_antigo/<session_id>')
+def baixar_log_antigo(session_id):
+    """Baixa um log antigo do Raspberry Pi"""
+    try:
+        nome_cenario = request.args.get('cenario', 'desconhecido')
+        local_log_path = baixar_log_robo(session_id, nome_cenario)
+        
+        if local_log_path:
+            flash(f'Log baixado com sucesso: {local_log_path}', 'success')
+        else:
+            flash('Erro ao baixar log do Raspberry Pi', 'warning')
+            
+    except Exception as e:
+        flash(f'Erro: {e}', 'danger')
+    
+    return redirect(url_for('logs_robo'))
 
 if __name__ == '__main__':
     print("🚀 Iniciando servidor Flask...")

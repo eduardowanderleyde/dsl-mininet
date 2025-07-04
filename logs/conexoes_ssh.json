@@ -278,5 +278,89 @@
     "status": "upload_sucesso",
     "detalhes": "Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py",
     "tipo": "conexao_ssh"
+  },
+  {
+    "timestamp": "2025-07-04 00:41:06",
+    "ip": "192.168.68.107",
+    "status": "tentando",
+    "detalhes": "Estabelecendo conex\u00e3o SSH...",
+    "tipo": "conexao_ssh"
+  },
+  {
+    "timestamp": "2025-07-04 00:41:07",
+    "ip": "192.168.68.107",
+    "status": "conectado",
+    "detalhes": "Conex\u00e3o SSH estabelecida com sucesso",
+    "tipo": "conexao_ssh"
+  },
+  {
+    "timestamp": "2025-07-04 00:41:11",
+    "ip": "192.168.68.107",
+    "status": "upload_sucesso",
+    "detalhes": "Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py",
+    "tipo": "conexao_ssh"
+  },
+  {
+    "timestamp": "2025-07-04 00:41:18",
+    "ip": "192.168.68.107",
+    "status": "upload_sucesso",
+    "detalhes": "Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py",
+    "tipo": "conexao_ssh"
+  },
+  {
+    "timestamp": "2025-07-04 00:45:23",
+    "ip": "192.168.68.107",
+    "status": "tentando",
+    "detalhes": "Estabelecendo conex\u00e3o SSH...",
+    "tipo": "conexao_ssh"
+  },
+  {
+    "timestamp": "2025-07-04 00:45:25",
+    "ip": "192.168.68.107",
+    "status": "conectado",
+    "detalhes": "Conex\u00e3o SSH estabelecida com sucesso",
+    "tipo": "conexao_ssh"
+  },
+  {
+    "timestamp": "2025-07-04 00:47:58",
+    "ip": "192.168.68.107",
+    "status": "tentando",
+    "detalhes": "Estabelecendo conex\u00e3o SSH...",
+    "tipo": "conexao_ssh"
+  },
+  {
+    "timestamp": "2025-07-04 00:47:59",
+    "ip": "192.168.68.107",
+    "status": "conectado",
+    "detalhes": "Conex\u00e3o SSH estabelecida com sucesso",
+    "tipo": "conexao_ssh"
+  },
+  {
+    "timestamp": "2025-07-04 00:53:28",
+    "ip": "192.168.68.107",
+    "status": "tentando",
+    "detalhes": "Estabelecendo conex\u00e3o SSH...",
+    "tipo": "conexao_ssh"
+  },
+  {
+    "timestamp": "2025-07-04 00:53:29",
+    "ip": "192.168.68.107",
+    "status": "conectado",
+    "detalhes": "Conex\u00e3o SSH estabelecida com sucesso",
+    "tipo": "conexao_ssh"
+  },
+  {
+    "timestamp": "2025-07-04 00:53:35",
+    "ip": "192.168.68.107",
+    "status": "upload_sucesso",
+    "detalhes": "Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py",
+    "tipo": "conexao_ssh"
+  },
+  {
+    "timestamp": "2025-07-04 00:53:35",
+    "ip": "192.168.68.107",
+    "status": "upload_sucesso",
+    "detalhes": "Arquivo enviado: robo_script_cenario_quarto_final.py -> /home/eduardowanderley/robo_script_cenario_quarto_final.py",
+    "tipo": "conexao_ssh"
   }
 ]
