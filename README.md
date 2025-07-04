@@ -195,3 +195,62 @@ Para dúvidas ou problemas:
 2. Use `teste_cenarios.py` para validar cenários
 3. Use `analisar_logs.py` para analisar resultados
 4. Consulte os exemplos fornecidos 
+
+# DSL Mininet-WiFi + Execução em Robô Real
+
+## 🚦 Fluxo Completo do Sistema
+
+### 🎛️ Etapa de Orquestração (Flask)
+- 💻 Interface web funcionando
+- ✅ Endpoint `/executar_robo/<cenario>` respondendo 200
+- 🚀 Upload e início do script confirmados
+- 💬 Logs completos no backend (PID, status, confirmação)
+
+### 🤖 Etapa no Raspberry Pi
+- 📂 Script transferido e salvo
+- ✅ Script executado via SSH
+- 🔥 PID validado
+- 📝 Log do script em arquivo (`robo_output_<sessao>.log`)
+- 🎥 Monitoramento possível em tempo real (via tail ou scp)
+
+---
+
+## 🛠️ Próximos Passos para Depuração
+
+1. **Acessar o Raspberry Pi via SSH**
+   ```bash
+   ssh eduardowanderley@192.168.68.107
+   ```
+2. **Ver log do script em tempo real**
+   ```bash
+   tail -f robo_output_<sessao>.log
+   ```
+3. **(Opcional) Executar manualmente para ver traceback**
+   ```bash
+   python3 robo_script_cenario_quarto_final.py
+   ```
+4. **(Opcional) Baixar log para o Mac**
+   ```bash
+   scp eduardowanderley@192.168.68.107:/home/eduardowanderley/robo_output_<sessao>.log ~/Downloads
+   open ~/Downloads/robo_output_<sessao>.log
+   ```
+
+---
+
+## 💡 Dicas de Depuração
+- Verifique dependências no Pi (`pip install ...`)
+- Confira permissões (`chmod +x` ou execute com `python3`)
+- Teste hardware (USB, motores, sensores)
+- Veja o traceback no log/manual
+
+---
+
+## 💬 O que posso te ajudar:
+- ✅ Revisar o script `robo_script_cenario_quarto_final.py`
+- ✅ Sugerir melhorias no log (timestamps, formatação, status em JSON)
+- ✅ Criar script de coleta automática dos logs para o Mac
+- ✅ Criar um "monitor ao vivo" no Flask mostrando progresso
+
+---
+
+**Parabéns pelo fluxo, está super profissional! 🚀** 
